@@ -1,5 +1,7 @@
 # TopJava #19 Graduation Project
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/50cff6b344b54b13b8701a40a40cf18c)](https://www.codacy.com/manual/whiskels/topjava-graduation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=whiskels/topjava-graduation&amp;utm_campaign=Badge_Grade)
+
 ## Task
 
 [Link](https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md)
