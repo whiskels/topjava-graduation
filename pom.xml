@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.kuzmin</groupId>
+    <groupId>com.whiskels</groupId>
     <artifactId>topjava-graduation</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
@@ -21,20 +21,30 @@
     </build>
 
     <properties>
-    <java.version>14</java.version>
+        <java.version>14</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <spring.version>5.2.6.RELEASE</spring.version>
 
+        <tomcat.version>9.0.36</tomcat.version>
+
+        <!-- Logging -->
+        <logback.version>1.2.3</logback.version>
+        <slf4j.version>1.7.30</slf4j.version>
+
         <!--    Tests  -->
         <junit.version>4.13</junit.version>
         <assertj.version>3.16.1</assertj.version>
+
+        <!--DB-->
+        <postgresql.version>42.2.14</postgresql.version>
 
         <!-- Hibernate -->
         <hibernate.version>5.4.18.Final</hibernate.version>
         <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
         <javax-el.version>3.0.1-b11</javax-el.version>
+
     </properties>
 
 
@@ -98,6 +108,34 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>postgres</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                    <version>${tomcat.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jul-to-slf4j</artifactId>
+                    <version>${slf4j.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
 
     <dependencyManagement>

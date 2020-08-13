@@ -1,4 +1,4 @@
-package com.kuzmin.graduation.model;
+package com.whiskels.graduation.model;
 
 public class Dish extends AbstractNamedEntity {
 }
