@@ -2,6 +2,8 @@ DELETE FROM user_roles;
 DELETE FROM votes;
 DELETE FROM users;
 DELETE FROM restaurants;
+DELETE FROM dishes;
+
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (name, email, password)
@@ -25,4 +27,36 @@ VALUES (100000, 100002, '2020-08-10'),
        (100001, 100005, '2020-08-10'),
        (100001, 100003, '2020-08-11'),
        (100001, 100005, '2020-08-12'),
-       (100001, 100002, '2020-08-13')
+       (100001, 100002, '2020-08-13');
+
+INSERT INTO dishes (restaurant_id, name, price, date)
+VALUES (100002, 'Caprese Burger', 500, '2020-08-10');
+VALUES (100002, 'Borsch', 300, '2020-08-10');
+VALUES (100002, 'New York Cheesecake', 350, '2020-08-10');
+VALUES (100002, 'Bolognese Pasta', 450, '2020-08-11');
+VALUES (100002, 'Chicken Noodles', 250, '2020-08-11');
+VALUES (100002, 'Chiefs special', 500, '2020-08-11');
+VALUES (100002, 'Corsican Burger', 500, '2020-08-12');
+VALUES (100002, 'Tom Yum', 400, '2020-08-12');
+VALUES (100002, 'Belgian Waffles', 375, '2020-08-12');
+VALUES (100002, 'Combo box', 999, '2020-08-13');
+VALUES (100003, 'California Roll', 1000, '2020-08-10');
+VALUES (100003, 'Philly roll', 1200, '2020-08-10');
+VALUES (100003, 'Salmon roll', 700, '2020-08-10');
+VALUES (100003, 'California Roll', 1000, '2020-08-11');
+VALUES (100003, 'Philly roll', 1200, '2020-08-11');
+VALUES (100003, 'Salmon roll', 700, '2020-08-11');
+VALUES (100003, 'California Roll', 1000, '2020-08-12');
+VALUES (100003, 'Philly roll', 1200, '2020-08-12');
+VALUES (100003, 'Salmon roll', 700, '2020-08-12');
+VALUES (100003, 'California Roll', 1000, '2020-08-13');
+VALUES (100003, 'Philly roll', 1200, '2020-08-13');
+VALUES (100003, 'Salmon roll', 700, '2020-08-13');
+VALUES (100004, 'MacCombo', 300, '2020-08-10');
+VALUES (100004, 'MacCombo', 300, '2020-08-11');
+VALUES (100004, 'MacCombo', 300, '2020-08-12');
+VALUES (100004, 'MacCombo', 300, '2020-08-13');
+VALUES (100004, 'Kobe Steak', 10000, '2020-08-10');
+VALUES (100004, 'Fugu Fish', 50000, '2020-08-11');
+VALUES (100004, 'Gold on a plate', 500000, '2020-08-12');
+VALUES (100004, 'Something expensive', 100000, '2020-08-13');

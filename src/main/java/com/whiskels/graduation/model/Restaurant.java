@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @NamedQueries({
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant u WHERE u.id=:id"),
 })
@@ -26,8 +28,8 @@ public class Restaurant extends AbstractNamedEntity {
     private Date registered = new Date();
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    @OrderBy("dateTime DESC")
+    @OneToMany(fetch = LAZY, mappedBy = "restaurant")
+    @OrderBy("date DESC")
     private List<Vote> votes;
 
     public Restaurant() {
