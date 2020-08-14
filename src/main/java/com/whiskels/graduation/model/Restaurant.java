@@ -9,16 +9,11 @@ import java.util.*;
 
 import static javax.persistence.FetchType.LAZY;
 
-@NamedQueries({
-        @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant u WHERE u.id=:id"),
-})
 @Entity
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "restaurants_unique_name_idx")})
 @Getter
 @Setter
 public class Restaurant extends AbstractNamedEntity {
-
-    public static final String DELETE = "Restaurant.delete";
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
@@ -35,26 +30,27 @@ public class Restaurant extends AbstractNamedEntity {
     public Restaurant() {
     }
 
-    public Restaurant(Integer id, String name, Date registered) {
+    public Restaurant(Integer id, String name, boolean enabled, Date registered) {
         super(id, name);
+        this.enabled = enabled;
         this.registered = registered;
     }
 
-    public Restaurant(String name) {
-        this(null, name, new Date());
+    public Restaurant(Integer id, String name) {
+        this(id, name, true, new Date());
     }
 
-    public Restaurant(Integer id, String name) {
-        super(id, name);
+    public Restaurant(Restaurant restaurant) {
+        this(restaurant.getId(), restaurant.getName(), restaurant.isEnabled(), restaurant.getRegistered());
     }
 
     @Override
     public String toString() {
         return "Restaurant{" +
                 "id=" + id +
+                ", name='" + name +
                 "enabled=" + enabled +
                 ", registered=" + registered +
-                ", name='" + name + '\'' +
                 '}';
     }
 }

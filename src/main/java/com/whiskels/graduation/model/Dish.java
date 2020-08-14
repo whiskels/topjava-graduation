@@ -23,11 +23,34 @@ public class Dish extends AbstractNamedEntity {
 
     @Column(name = "date", nullable = false)
     @NotNull
-    private LocalDate date;
+    private LocalDate date = LocalDate.now();
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = CASCADE)
     @NotNull
     private Restaurant restaurant;
+
+    public Dish() {
+    }
+
+    public Dish(LocalDate date, String name, Integer price) {
+        this(null, date, name, price);
+    }
+
+    public Dish(Integer id, LocalDate date, String name, Integer price) {
+        super(id, name);
+        this.date = date;
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "id=" + id +
+                ", name='" + name +
+                ", price=" + price +
+                ", date=" + date +
+                '}';
+    }
 }
