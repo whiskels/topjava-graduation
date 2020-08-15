@@ -39,9 +39,6 @@
         <junit.version>4.13</junit.version>
         <assertj.version>3.16.1</assertj.version>
 
-        <!--DB-->
-        <postgresql.version>42.2.14</postgresql.version>
-
         <!-- Hibernate -->
         <hibernate.version>5.4.18.Final</hibernate.version>
         <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
@@ -118,13 +115,8 @@
 
     <profiles>
         <profile>
-            <id>postgres</id>
+            <id>hsqldb</id>
             <dependencies>
-                <dependency>
-                    <groupId>org.postgresql</groupId>
-                    <artifactId>postgresql</artifactId>
-                    <version>${postgresql.version}</version>
-                </dependency>
                 <dependency>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jdbc</artifactId>

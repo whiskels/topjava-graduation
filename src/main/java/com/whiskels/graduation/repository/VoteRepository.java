@@ -2,6 +2,7 @@ package com.whiskels.graduation.repository;
 
 import com.whiskels.graduation.model.Vote;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -19,10 +20,12 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
     List<Vote> findAllByRestaurantIdAndDate(int restaurantId, LocalDate date);
 
+    int countVoteByRestaurantIdAndDate(int restaurantId, LocalDate date);
+
     @Transactional
+    @Modifying
     int deleteByIdAndUserId(int id, int userId);
 
-    @Query("SELECT v FROM Vote v JOIN FETCH v.user WHERE v.id=:id AND v.restaurant.id=:restaurantId")
+    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.id=:id AND v.restaurant.id=:restaurantId")
     Vote getWithRestaurant(@Param("id") int id, @Param("restaurantId") int restaurantId);
-
 }
