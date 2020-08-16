@@ -22,6 +22,9 @@ public class Restaurant extends AbstractNamedEntity {
     @NotNull
     private Date registered = new Date();
 
+    @OneToMany(fetch = LAZY, mappedBy = "restaurant")
+    @OrderBy("date DESC")
+    private List<Dish> dishes;
 
     @OneToMany(fetch = LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")

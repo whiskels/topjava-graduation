@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Integer> {
+
     @Transactional
     @Modifying
     @Query("DELETE FROM User u WHERE u.id=:id")
