@@ -28,11 +28,13 @@ public class UserService {
     }
 
     public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+        checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 
+    // Usage of findById over getOne
+    // https://stackoverflow.com/questions/24482117/when-use-getone-and-findone-methods-spring-data-jpa
     public User get(int id) {
-        return checkNotFoundWithId(repository.getOne(id), id);
+        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
     }
 
     public User getByEmail(String email) {

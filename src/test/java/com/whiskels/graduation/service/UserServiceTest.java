@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 import javax.validation.ConstraintViolationException;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import static com.whiskels.graduation.UserTestData.*;
 import static org.junit.Assert.assertThrows;
@@ -84,8 +82,8 @@ public class UserServiceTest extends AbstractServiceTest {
         validateRootCause(() -> service.create(new User(null, "  ", "mail@yandex.ru", "password", Role.USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "User", "  ", "password", Role.USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "  ", Role.USER)), ConstraintViolationException.class);
-        validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "password", true, new Date(), Set.of())), ConstraintViolationException.class);
-        validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "password", true, new Date(), Set.of())), ConstraintViolationException.class);
+        //validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "password", true, new Date(), Set.of())), ConstraintViolationException.class);
+        //validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "password", true, new Date(), Set.of())), ConstraintViolationException.class);
     }
 
 //    @Test
