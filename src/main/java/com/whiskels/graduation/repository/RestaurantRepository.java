@@ -1,6 +1,7 @@
 package com.whiskels.graduation.repository;
 
 import com.whiskels.graduation.model.Restaurant;
+import com.whiskels.graduation.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     @Modifying
     @Query("DELETE FROM Restaurant r WHERE r.id=:id")
     int delete(@Param("id") int id);
+
+    @Query("SELECT r FROM Restaurant r LEFT JOIN FETCH r.votes WHERE r.id=:id")
+    User getWithVotes(@Param("id") int id);
 }

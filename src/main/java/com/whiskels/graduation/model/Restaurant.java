@@ -51,9 +51,8 @@ public class Restaurant extends AbstractNamedEntity {
     public String toString() {
         return "Restaurant{" +
                 "id=" + id +
-                ", name='" + name +
-                "enabled=" + enabled +
-                ", registered=" + registered +
+                ", name='" + name + "'" +
+                ", enabled=" + enabled +
                 '}';
     }
 }

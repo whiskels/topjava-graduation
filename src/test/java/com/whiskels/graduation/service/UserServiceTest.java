@@ -96,6 +96,6 @@ public class UserServiceTest extends AbstractServiceTest {
     @Test
     public void getWithVotesNotFound() throws Exception {
         Assert.assertThrows(NotFoundException.class,
-                () -> service.getWithVotes(1));
+                () -> service.getWithVotes(NOT_FOUND));
     }
 }
