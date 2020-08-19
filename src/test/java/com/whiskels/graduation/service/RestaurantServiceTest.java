@@ -2,7 +2,6 @@ package com.whiskels.graduation.service;
 
 import com.whiskels.graduation.model.Restaurant;
 import com.whiskels.graduation.util.exception.NotFoundException;
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -18,9 +17,9 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void create() throws Exception {
-        Restaurant created = service.create(getNew());
+        Restaurant created = service.create(getNewRestaurant());
         int newId = created.id();
-        Restaurant newRestaurant = getNew();
+        Restaurant newRestaurant = getNewRestaurant();
         newRestaurant.setId(newId);
         RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
         RESTAURANT_MATCHER.assertMatch(service.get(newId), newRestaurant);
@@ -56,9 +55,9 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void update() throws Exception {
-        Restaurant updated = getUpdated();
+        Restaurant updated = getUpdatedRestaurant();
         service.update(updated);
-        RESTAURANT_MATCHER.assertMatch(service.get(RESTAURANT_1_ID), getUpdated());
+        RESTAURANT_MATCHER.assertMatch(service.get(RESTAURANT_1_ID), getUpdatedRestaurant());
     }
 
     @Test
@@ -69,7 +68,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void getWithVotesNotFound() throws Exception {
-        Assert.assertThrows(NotFoundException.class,
+        assertThrows(NotFoundException.class,
                 () -> service.getWithVotes(NOT_FOUND));
     }
 }

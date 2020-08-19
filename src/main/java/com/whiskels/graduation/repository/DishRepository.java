@@ -1,7 +1,6 @@
 package com.whiskels.graduation.repository;
 
 import com.whiskels.graduation.model.Dish;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,12 +16,12 @@ import java.util.List;
 public interface DishRepository extends JpaRepository<Dish, Integer> {
     @Transactional
     @Modifying
-    @Query("DELETE FROM Dish d WHERE d.id=:id")
-    int delete(@Param("id") int id);
+    @Query("DELETE FROM Dish d WHERE d.id=:id AND d.restaurant.id=:restaurantId")
+    int delete(@Param("id") int id, @Param("restaurantId") int restaurantId);
 
-    @Transactional
-    @Modifying
-    int deleteAllByRestaurantId(int restaurantId);
+    @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:restaurantId ORDER BY d.date DESC")
+    List<Dish> getAll(@Param("restaurantId") int restaurantId);
 
-    List<Dish> getAllByRestaurantIdAndDate(int restaurantId, LocalDate date, Sort sort);
+    @Query("SELECT d from Dish d WHERE d.restaurant.id=:restaurantId AND d.date = :date ORDER BY d.date DESC")
+    List<Dish> getByDate(@Param("date") LocalDate date, @Param("restaurantId") int restaurantId);
 }

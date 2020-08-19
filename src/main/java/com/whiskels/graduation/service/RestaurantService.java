@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
+import static com.whiskels.graduation.util.RepositoryUtil.findById;
 import static com.whiskels.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -31,7 +32,7 @@ public class RestaurantService {
     }
 
     public Restaurant get(int id) {
-        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
+        return findById(repository, id);
     }
 
     public List<Restaurant> getAll() {

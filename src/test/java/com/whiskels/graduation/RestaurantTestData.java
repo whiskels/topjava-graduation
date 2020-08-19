@@ -18,11 +18,11 @@ public class RestaurantTestData {
     public static final Restaurant RESTAURANT_3 = new Restaurant(RESTAURANT_3_ID, "McDonalds");
     public static final Restaurant RESTAURANT_4 = new Restaurant(RESTAURANT_4_ID, "Caesars Palace");
 
-    public static Restaurant getNew() {
+    public static Restaurant getNewRestaurant() {
         return new Restaurant(null, "New");
     }
 
-    public static Restaurant getUpdated() {
+    public static Restaurant getUpdatedRestaurant() {
         Restaurant updated = new Restaurant(RESTAURANT_1);
         updated.setName("UpdatedName");
         return updated;

@@ -4,7 +4,6 @@ package com.whiskels.graduation.service;
 import com.whiskels.graduation.model.Role;
 import com.whiskels.graduation.model.User;
 import com.whiskels.graduation.util.exception.NotFoundException;
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -66,9 +65,9 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void update() throws Exception {
-        User updated = getUpdated();
+        User updated = getUpdatedUser();
         service.update(updated);
-        USER_MATCHER.assertMatch(service.get(USER_ID), getUpdated());
+        USER_MATCHER.assertMatch(service.get(USER_ID), getUpdatedUser());
     }
 
     @Test
@@ -95,7 +94,7 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void getWithVotesNotFound() throws Exception {
-        Assert.assertThrows(NotFoundException.class,
+        assertThrows(NotFoundException.class,
                 () -> service.getWithVotes(NOT_FOUND));
     }
 }
