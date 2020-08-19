@@ -9,7 +9,7 @@ public class RepositoryUtil {
     }
 
     // Usage of findById over getOne
-    // https://stackoverflow.com/questions/24482117/when-use-getone-and-findone-methods-spring-data-jpa
+    // https://stackoverflow.com/a/47370947
     public static <T, K extends Integer> T findById(JpaRepository<T, K> repository, K id) {
         return checkNotFoundWithId(repository.findById(id).orElse(null), id);
     }

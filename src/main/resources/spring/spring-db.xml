@@ -37,7 +37,7 @@
         </property>
     </bean>
 
-    <!-- https://stackoverflow.com/questions/3423972/spring-transaction-method-call-by-the-method-within-the-same-class-does-not-wo -->
+    <!-- https://stackoverflow.com/a/3429757 -->
     <tx:annotation-driven mode="aspectj"/>
 
     <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
