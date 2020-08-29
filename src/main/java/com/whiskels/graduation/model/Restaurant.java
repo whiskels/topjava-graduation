@@ -14,7 +14,6 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @Setter
 public class Restaurant extends AbstractNamedEntity {
-
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
 

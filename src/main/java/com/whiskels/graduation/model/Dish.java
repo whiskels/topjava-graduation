@@ -19,7 +19,8 @@ import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 public class Dish extends AbstractNamedEntity {
     @Column(name = "price", nullable = false)
     @Positive
-    private int price;
+    // https://stackoverflow.com/a/43051227
+    private Long price;
 
     @Column(name = "date", nullable = false)
     @NotNull
@@ -34,11 +35,11 @@ public class Dish extends AbstractNamedEntity {
     public Dish() {
     }
 
-    public Dish(LocalDate date, String name, Integer price) {
+    public Dish(LocalDate date, String name, Long price) {
         this(null, date, name, price);
     }
 
-    public Dish(Integer id, LocalDate date, String name, Integer price) {
+    public Dish(Integer id, LocalDate date, String name, Long price) {
         super(id, name);
         this.date = date;
         this.price = price;

@@ -2,6 +2,8 @@ package com.whiskels.graduation.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Cache;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -14,6 +16,7 @@ import java.util.*;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_WRITE;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
@@ -39,11 +42,13 @@ public class User extends AbstractNamedEntity {
     @NotNull
     private Date registered = new Date();
 
+    @Cache(usage = NONSTRICT_READ_WRITE)
     @Enumerated(STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique_idx")})
     @Column(name = "role")
     @ElementCollection(fetch = EAGER)
+    @BatchSize(size = 200)
     private Set<Role> roles;
 
     @OneToMany(fetch = LAZY, mappedBy = "user")
