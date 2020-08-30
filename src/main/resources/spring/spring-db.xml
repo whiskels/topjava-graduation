@@ -37,8 +37,7 @@
         </property>
     </bean>
 
-    <!-- https://stackoverflow.com/a/3429757 -->
-    <tx:annotation-driven mode="aspectj"/>
+    <tx:annotation-driven/>
 
     <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"

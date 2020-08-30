@@ -9,7 +9,8 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 import static com.whiskels.graduation.util.RepositoryUtil.findById;
-import static com.whiskels.graduation.util.ValidationUtil.*;
+import static com.whiskels.graduation.util.ValidationUtil.checkNotFound;
+import static com.whiskels.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class UserService {
