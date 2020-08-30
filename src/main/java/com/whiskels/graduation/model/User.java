@@ -1,6 +1,7 @@
 package com.whiskels.graduation.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -22,6 +23,7 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
 @Getter
 @Setter
+@NoArgsConstructor
 public class User extends AbstractNamedEntity {
 
     @Column(name = "email", nullable = false, unique = true)
@@ -54,9 +56,6 @@ public class User extends AbstractNamedEntity {
     @OneToMany(fetch = LAZY, mappedBy = "user")
     @OrderBy("date DESC")
     private List<Vote> votes;
-
-    public User() {
-    }
 
     public User(User u) {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered(), u.getRoles());

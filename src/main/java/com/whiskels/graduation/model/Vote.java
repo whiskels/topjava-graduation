@@ -1,6 +1,7 @@
 package com.whiskels.graduation.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 
@@ -16,6 +17,7 @@ import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date"}, name = "votes_unique_user_date_idx")})
 @Getter
 @Setter
+@NoArgsConstructor
 public class Vote extends AbstractBaseEntity {
     public static final LocalTime VOTE_DEADLINE = LocalTime.of(11, 0);
 
@@ -34,10 +36,6 @@ public class Vote extends AbstractBaseEntity {
     @OnDelete(action = CASCADE)
     @NotNull
     private Restaurant restaurant;
-
-
-    public Vote() {
-    }
 
     public Vote(LocalDate date, User user, Restaurant restaurant) {
         this(null, date, user, restaurant);
