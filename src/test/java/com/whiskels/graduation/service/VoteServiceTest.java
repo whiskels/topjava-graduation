@@ -4,7 +4,6 @@ import com.whiskels.graduation.model.Vote;
 import com.whiskels.graduation.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,7 +17,6 @@ public class VoteServiceTest extends AbstractServiceTest {
     protected VoteService voteService;
 
     @Test
-    @Transactional
     public void vote() throws Exception {
         Vote newVote = getNewVote();
         Vote created = voteService.vote(newVote.getUser().id(), newVote.getRestaurant().id(), newVote.getDate().atTime(10, 0));
@@ -28,7 +26,6 @@ public class VoteServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    @Transactional
     public void getAll() throws Exception {
         List<Vote> voteList = voteService.getAll(USER_ID);
         VOTE_MATCHER.assertMatch(voteList, VOTE_3, VOTE_2, VOTE_1);
