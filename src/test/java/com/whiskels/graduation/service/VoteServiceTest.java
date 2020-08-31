@@ -28,7 +28,7 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     public void getAll() throws Exception {
         List<Vote> voteList = voteService.getAll(USER_ID);
-        VOTE_MATCHER.assertMatch(voteList, VOTE_3, VOTE_2, VOTE_1);
+        VOTE_LAZY_MATCHER.assertMatch(voteList, VOTE_3, VOTE_2, VOTE_1);
     }
 
     @Test
