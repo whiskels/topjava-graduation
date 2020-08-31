@@ -5,7 +5,6 @@ import com.whiskels.graduation.repository.DishRepository;
 import com.whiskels.graduation.repository.RestaurantRepository;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
@@ -25,7 +24,6 @@ public class DishService {
         this.restaurantRepository = restaurantRepository;
     }
 
-    @Transactional
     @CacheEvict(value = "restaurants", allEntries = true)
     public Dish create(Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
@@ -34,7 +32,6 @@ public class DishService {
         return dishRepository.save(dish);
     }
 
-    @Transactional
     @CacheEvict(value = "restaurants", allEntries = true)
     public Dish update(Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");

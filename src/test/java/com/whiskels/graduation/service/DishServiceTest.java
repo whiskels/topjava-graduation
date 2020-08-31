@@ -2,6 +2,7 @@ package com.whiskels.graduation.service;
 
 import com.whiskels.graduation.model.Dish;
 import com.whiskels.graduation.util.exception.NotFoundException;
+import org.hsqldb.HsqlException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,19 +71,15 @@ public class DishServiceTest extends AbstractServiceTest {
         Assert.assertEquals("Not found entity with id=" + DISH_1_ID, exception.getMessage());
     }
 
-//    @Test
-//    public void getAll() throws Exception {
-//        DISH_MATCHER.assertMatch(service.getAll(RESTAURANT_1_ID), DISHES);
-//    }
+    @Test
+    public void getByRestaurantIdAndDate() throws Exception {
+        DISH_MATCHER.assertMatch(service.getByDate(DISH_TEST_DATE, RESTAURANT_1_ID), DISH_3, DISH_1, DISH_2);
+    }
 
-//    @Test
-//    public void getByDate() throws Exception {
-//        DISH_MATCHER.assertMatch(service.getByDate(
-//                LocalDate.now(), RESTAURANT_1_ID),
-//                DISH_1);
-//    }
-
-//    @Test
-//    public void createWithException() throws Exception {
-//    }
+    @Test
+    public void createWithException() throws Exception {
+        Dish testDish = DISH_1;
+        testDish.setId(null);
+        validateRootCause(() -> service.create(testDish, RESTAURANT_1_ID), HsqlException.class);
+    }
 }
