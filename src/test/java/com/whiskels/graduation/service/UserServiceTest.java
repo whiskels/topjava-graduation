@@ -1,6 +1,7 @@
 package com.whiskels.graduation.service;
 
 
+import com.whiskels.graduation.VoteTestData;
 import com.whiskels.graduation.model.Role;
 import com.whiskels.graduation.model.User;
 import com.whiskels.graduation.util.exception.NotFoundException;
@@ -42,7 +43,7 @@ public class UserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void deletedNotFound() throws Exception {
+    public void deleteNotFound() throws Exception {
         assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND));
     }
 
@@ -85,12 +86,12 @@ public class UserServiceTest extends AbstractServiceTest {
         //validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "password", true, new Date(), Set.of())), ConstraintViolationException.class);
     }
 
-//    @Test
-//    public void getWithVotes() throws Exception {
-//        User user = service.getWithVotes(USER_ID);
-//        USER_MATCHER.assertMatch(user, USER);
-//        VoteTestData.VOTE_MATCHER.assertMatch(user.getVotes(), VoteTestData.VOTES);
-//    }
+    @Test
+    public void getWithVotes() throws Exception {
+        User user = service.getWithVotes(USER_ID);
+        USER_MATCHER.assertMatch(user, USER);
+        VoteTestData.VOTE_LAZY_MATCHER.assertMatch(user.getVotes(), VoteTestData.VOTES);
+    }
 
     @Test
     public void getWithVotesNotFound() throws Exception {

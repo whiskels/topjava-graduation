@@ -3,6 +3,7 @@ package com.whiskels.graduation;
 import com.whiskels.graduation.model.Vote;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static com.whiskels.graduation.RestaurantTestData.RESTAURANT_1;
 import static com.whiskels.graduation.RestaurantTestData.RESTAURANT_3;
@@ -20,6 +21,8 @@ public class VoteTestData {
     public static final Vote VOTE_1 = new Vote(VOTE_1_ID, LocalDate.of(2020, 8, 10), USER, RESTAURANT_1);
     public static final Vote VOTE_2 = new Vote(VOTE_2_ID, LocalDate.of(2020, 8, 11), USER, RESTAURANT_1);
     public static final Vote VOTE_3 = new Vote(VOTE_3_ID, LocalDate.of(2020, 8, 12), USER, RESTAURANT_3);
+
+    public static final List<Vote> VOTES = List.of(VOTE_3, VOTE_2, VOTE_1);
 
     public static Vote getNewVote() {
         return new Vote(null, LocalDate.now(), USER, RESTAURANT_1);
