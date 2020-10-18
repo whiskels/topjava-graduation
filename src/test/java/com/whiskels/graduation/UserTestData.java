@@ -9,7 +9,7 @@ import java.util.Date;
 import static com.whiskels.graduation.model.AbstractBaseEntity.START_SEQ;
 
 public class UserTestData {
-    public static TestMatcher<User> USER_MATCHER = TestMatcher.usingFieldsComparator("registered", "roles", "votes");
+    public static TestMatcher<User> USER_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(User.class, "registered", "votes", "password");
 
     public static final int NOT_FOUND = 10;
     public static final int USER_ID = START_SEQ;

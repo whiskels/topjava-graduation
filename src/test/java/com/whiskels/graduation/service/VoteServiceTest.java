@@ -2,7 +2,7 @@ package com.whiskels.graduation.service;
 
 import com.whiskels.graduation.model.Vote;
 import com.whiskels.graduation.util.exception.NotFoundException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 import static com.whiskels.graduation.DishTestData.DISH_1_ID;
 import static com.whiskels.graduation.UserTestData.*;
 import static com.whiskels.graduation.VoteTestData.*;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class VoteServiceTest extends AbstractServiceTest {
     @Autowired

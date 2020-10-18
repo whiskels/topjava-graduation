@@ -11,8 +11,8 @@ import static com.whiskels.graduation.UserTestData.USER;
 import static com.whiskels.graduation.model.AbstractBaseEntity.START_SEQ;
 
 public class VoteTestData {
-    public static TestMatcher<Vote> VOTE_MATCHER = TestMatcher.usingFieldsComparator();
-    public static TestMatcher<Vote> VOTE_LAZY_MATCHER = TestMatcher.usingFieldsComparator("user", "restaurant");
+    public static TestMatcher<Vote> VOTE_MATCHER = TestMatcher.usingEqualsAssertions(Vote.class);
+    public static TestMatcher<Vote> VOTE_LAZY_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Vote.class, "user", "restaurant");
 
     public static final int VOTE_1_ID = START_SEQ + 6;
     public static final int VOTE_2_ID = START_SEQ + 7;

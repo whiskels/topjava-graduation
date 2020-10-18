@@ -5,7 +5,7 @@ import com.whiskels.graduation.model.Restaurant;
 import static com.whiskels.graduation.model.AbstractBaseEntity.START_SEQ;
 
 public class RestaurantTestData {
-    public static TestMatcher<Restaurant> RESTAURANT_MATCHER = TestMatcher.usingFieldsComparator("registered", "dishes", "votes");
+    public static TestMatcher<Restaurant> RESTAURANT_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Restaurant.class, "registered", "dishes", "votes");
 
     public static final int NOT_FOUND = 10;
     public static final int RESTAURANT_1_ID = START_SEQ + 2;

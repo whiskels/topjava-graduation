@@ -5,7 +5,7 @@ import com.whiskels.graduation.VoteTestData;
 import com.whiskels.graduation.model.Role;
 import com.whiskels.graduation.model.User;
 import com.whiskels.graduation.util.exception.NotFoundException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
@@ -13,7 +13,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static com.whiskels.graduation.UserTestData.*;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserServiceTest extends AbstractServiceTest {
 

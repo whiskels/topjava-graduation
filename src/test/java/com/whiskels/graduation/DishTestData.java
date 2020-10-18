@@ -8,7 +8,7 @@ import static com.whiskels.graduation.RestaurantTestData.RESTAURANT_1;
 import static com.whiskels.graduation.model.AbstractBaseEntity.START_SEQ;
 
 public class DishTestData {
-    public static TestMatcher<Dish> DISH_MATCHER = TestMatcher.usingFieldsComparator("restaurant");
+    public static TestMatcher<Dish> DISH_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Dish.class, "restaurant");
 
     public static final LocalDate DISH_TEST_DATE = LocalDate.of(2020,8,10);
     public static final int DISH_1_ID = START_SEQ + 13;

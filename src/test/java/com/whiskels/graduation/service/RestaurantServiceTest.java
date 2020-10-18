@@ -2,14 +2,14 @@ package com.whiskels.graduation.service;
 
 import com.whiskels.graduation.model.Restaurant;
 import com.whiskels.graduation.util.exception.NotFoundException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
 import static com.whiskels.graduation.RestaurantTestData.*;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RestaurantServiceTest extends AbstractServiceTest {
     @Autowired

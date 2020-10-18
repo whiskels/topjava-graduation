@@ -1,5 +1,6 @@
 package com.whiskels.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,12 +30,14 @@ public class Vote extends AbstractBaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = CASCADE)
     @NotNull
+    @JsonBackReference
     private User user;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = CASCADE)
     @NotNull
+    @JsonBackReference
     private Restaurant restaurant;
 
     public Vote(LocalDate date, User user, Restaurant restaurant) {

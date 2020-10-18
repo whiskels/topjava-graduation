@@ -3,14 +3,14 @@ package com.whiskels.graduation.service;
 import com.whiskels.graduation.model.Dish;
 import com.whiskels.graduation.util.exception.NotFoundException;
 import org.hsqldb.HsqlException;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.whiskels.graduation.DishTestData.*;
 import static com.whiskels.graduation.RestaurantTestData.*;
 import static com.whiskels.graduation.UserTestData.NOT_FOUND;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DishServiceTest extends AbstractServiceTest {
     @Autowired
@@ -68,7 +68,7 @@ public class DishServiceTest extends AbstractServiceTest {
     @Test
     public void updateNotOwn() throws Exception {
         NotFoundException exception = assertThrows(NotFoundException.class, () -> service.update(DISH_1, RESTAURANT_3_ID));
-        Assert.assertEquals("Not found entity with id=" + DISH_1_ID, exception.getMessage());
+        assertEquals("Not found entity with id=" + DISH_1_ID, exception.getMessage());
     }
 
     @Test
