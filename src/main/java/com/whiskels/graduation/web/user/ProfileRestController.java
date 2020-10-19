@@ -2,6 +2,7 @@ package com.whiskels.graduation.web.user;
 
 import com.whiskels.graduation.AuthorizedUser;
 import com.whiskels.graduation.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+@Slf4j
 @RestController
-@RequestMapping(value = ProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = ProfileRestController.REST_URL)
 public class ProfileRestController extends AbstractUserController {
     static final String REST_URL = "/rest/profile";
 
-    @GetMapping
-    public ResponseEntity<User> get(@AuthenticationPrincipal AuthorizedUser authUser) {
-        return ResponseEntity.ok().body(super.get(authUser.getId()));
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public User get(@AuthenticationPrincipal AuthorizedUser authUser) {
+        return super.get(authUser.getId());
     }
 
     @DeleteMapping
@@ -45,13 +47,9 @@ public class ProfileRestController extends AbstractUserController {
         service.update(user);
     }
 
-    @GetMapping(value = "/text")
-    public String testUTF() {
-        return "Русский текст";
-    }
 
     @GetMapping("/with-votes")
-    public User getWithMeals(@AuthenticationPrincipal AuthorizedUser authUser) {
+    public User getWithVotes(@AuthenticationPrincipal AuthorizedUser authUser) {
         return super.getWithVotes(authUser.getId());
     }
 }

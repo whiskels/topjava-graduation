@@ -1,5 +1,6 @@
 package com.whiskels.graduation.model;
 
+import com.whiskels.graduation.HasId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Restaurant extends AbstractNamedEntity {
+public class Restaurant extends AbstractNamedEntity implements HasId {
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
 

@@ -21,7 +21,6 @@ import java.util.*;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
-import static org.hibernate.annotations.CacheConcurrencyStrategy.NONSTRICT_READ_WRITE;
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
@@ -52,7 +51,7 @@ public class User extends AbstractNamedEntity implements HasIdAndEmail {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date registered = new Date();
 
-    @Cache(usage = NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique_idx")})

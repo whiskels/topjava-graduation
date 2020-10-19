@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import java.util.List;
 
@@ -23,10 +24,16 @@ public abstract class AbstractUserController {
     @Autowired
     protected UserService service;
 
-    //@Autowired
-    //private UniqueMailValidator emailValidator;
+    @Autowired
+    private UniqueMailValidator emailValidator;
 
-    private boolean modificationRestriction;
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        if (binder.getTarget() != null && emailValidator.supports(binder.getTarget().getClass())) {
+            binder.addValidators(emailValidator);
+            this.binder = binder;
+        }
+    }
 
     public List<User> getAll() {
         log.info("getAll");
@@ -58,7 +65,7 @@ public abstract class AbstractUserController {
         }
     }
 
-    public void update(User user, int id) {
+    public void update(User user, int id) throws BindException {
         log.info("update {} with id={}", user, id);
         assureIdConsistent(user, id);
         service.update(user);

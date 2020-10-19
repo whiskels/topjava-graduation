@@ -1,5 +1,6 @@
 package com.whiskels.graduation.model;
 
+import com.whiskels.graduation.HasId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +19,7 @@ import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Dish extends AbstractNamedEntity {
+public class Dish extends AbstractNamedEntity implements HasId {
     @Column(name = "price", nullable = false)
     @Positive
     // https://stackoverflow.com/a/43051227
