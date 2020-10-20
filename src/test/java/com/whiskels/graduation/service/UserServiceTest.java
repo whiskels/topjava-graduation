@@ -13,15 +13,16 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static com.whiskels.graduation.UserTestData.*;
+import static com.whiskels.graduation.VoteTestData.VOTE_LAZY_MATCHER;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class UserServiceTest extends AbstractServiceTest {
+class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected UserService service;
 
     @Test
-    public void create() throws Exception {
+    void create() throws Exception {
         User created = service.create(getNew());
         int newId = created.id();
         User newUser = getNew();
@@ -31,54 +32,54 @@ public class UserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void duplicateMailCreate() throws Exception {
+    void duplicateMailCreate() throws Exception {
         assertThrows(DataAccessException.class, () ->
                 service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.USER)));
     }
 
     @Test
-    public void delete() throws Exception {
+    void delete() throws Exception {
         service.delete(USER_ID);
         assertThrows(NotFoundException.class, () -> service.get(USER_ID));
     }
 
     @Test
-    public void deleteNotFound() throws Exception {
+    void deleteNotFound() throws Exception {
         assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND));
     }
 
     @Test
-    public void get() throws Exception {
+    void get() throws Exception {
         User user = service.get(USER_ID);
         USER_MATCHER.assertMatch(user, USER);
     }
 
     @Test
-    public void getNotFound() throws Exception {
+    void getNotFound() throws Exception {
         assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND));
     }
 
     @Test
-    public void getByEmail() throws Exception {
+    void getByEmail() throws Exception {
         User user = service.getByEmail("admin@gmail.com");
         USER_MATCHER.assertMatch(user, ADMIN);
     }
 
     @Test
-    public void update() throws Exception {
+    void update() throws Exception {
         User updated = getUpdatedUser();
         service.update(updated);
         USER_MATCHER.assertMatch(service.get(USER_ID), getUpdatedUser());
     }
 
     @Test
-    public void getAll() throws Exception {
+    void getAll() throws Exception {
         List<User> all = service.getAll();
         USER_MATCHER.assertMatch(all, ADMIN, USER);
     }
 
     @Test
-    public void createWithException() throws Exception {
+    void createWithException() throws Exception {
         validateRootCause(() -> service.create(new User(null, "  ", "mail@yandex.ru", "password", Role.USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "User", "  ", "password", Role.USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "  ", Role.USER)), ConstraintViolationException.class);
@@ -87,14 +88,14 @@ public class UserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void getWithVotes() throws Exception {
+    void getWithVotes() throws Exception {
         User user = service.getWithVotes(USER_ID);
         USER_MATCHER.assertMatch(user, USER);
-        VoteTestData.VOTE_LAZY_MATCHER.assertMatch(user.getVotes(), VoteTestData.VOTES);
+        VOTE_LAZY_MATCHER.assertMatch(user.getVotes(), VoteTestData.VOTES);
     }
 
     @Test
-    public void getWithVotesNotFound() throws Exception {
+    void getWithVotesNotFound() throws Exception {
         assertThrows(NotFoundException.class,
                 () -> service.getWithVotes(NOT_FOUND));
     }

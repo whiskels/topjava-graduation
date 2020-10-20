@@ -3,6 +3,8 @@ package com.whiskels.graduation.web.user;
 import com.whiskels.graduation.HasId;
 import com.whiskels.graduation.model.User;
 import com.whiskels.graduation.service.UserService;
+import com.whiskels.graduation.to.UserTo;
+import com.whiskels.graduation.util.UserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
@@ -49,6 +51,11 @@ public abstract class AbstractUserController {
         log.info("create {}", user);
         checkNew(user);
         return service.create(user);
+    }
+
+    public User create(UserTo userTo) {
+        log.info("create from to {}", userTo);
+        return create(UserUtil.createNewFromTo(userTo));
     }
 
     public void delete(int id) {

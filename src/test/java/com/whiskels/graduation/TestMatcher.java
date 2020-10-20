@@ -1,8 +1,11 @@
 package com.whiskels.graduation;
 
+import org.springframework.test.web.servlet.ResultMatcher;
+
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import static com.whiskels.graduation.TestUtil.readListFromJsonMvcResult;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestMatcher<T> {
@@ -44,5 +47,18 @@ public class TestMatcher<T> {
 
     public void assertMatch(Iterable<T> actual, Iterable<T> expected) {
         iterableAssertion.accept(actual, expected);
+    }
+
+    public ResultMatcher contentJson(T expected) {
+        return result -> assertMatch(TestUtil.readFromJsonMvcResult(result, clazz), expected);
+    }
+
+    @SafeVarargs
+    public final ResultMatcher contentJson(T... expected) {
+        return contentJson(List.of(expected));
+    }
+
+    public ResultMatcher contentJson(Iterable<T> expected) {
+        return result -> assertMatch(readListFromJsonMvcResult(result, clazz), expected);
     }
 }

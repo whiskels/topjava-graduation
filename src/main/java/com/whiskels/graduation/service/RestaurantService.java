@@ -4,8 +4,6 @@ import com.whiskels.graduation.model.Restaurant;
 import com.whiskels.graduation.repository.RestaurantRepository;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -17,7 +15,6 @@ import static com.whiskels.graduation.util.RepositoryUtil.findById;
 import static com.whiskels.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
-@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class RestaurantService {
     private static final Sort SORT_NAME_REGISTERED = Sort.by(Sort.Direction.ASC, "name", "registered");
 

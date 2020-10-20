@@ -1,11 +1,10 @@
-package com.whiskels.graduation.web;
+package com.whiskels.graduation.web.json;
 
 import com.whiskels.graduation.UserTestData;
 import com.whiskels.graduation.model.Dish;
 import com.whiskels.graduation.model.Restaurant;
 import com.whiskels.graduation.model.User;
 import com.whiskels.graduation.model.Vote;
-import com.whiskels.graduation.web.json.JsonUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -20,7 +19,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JsonUtilTest {
+class JsonUtilTest {
     @Test
     void readWriteValue() throws Exception {
         String voteJson = JsonUtil.writeValue(VOTE_1);
