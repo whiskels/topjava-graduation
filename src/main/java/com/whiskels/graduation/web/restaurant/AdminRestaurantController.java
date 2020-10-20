@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.awt.*;
 import java.net.URI;
 import java.util.List;
 
@@ -74,7 +73,7 @@ public class AdminRestaurantController {
         return restaurantService.getAll();
     }
 
-    @PostMapping(value = DISHES_REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = REST_URL + DISHES_REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> createDish(@PathVariable int restaurantId, @Valid @RequestBody Dish dish) {
         log.info("restaurant {} adding dish {}", restaurantId, dish);
         checkNew(dish);
@@ -85,7 +84,7 @@ public class AdminRestaurantController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @PutMapping(value = DISHES_REST_URL + "/{dishId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = REST_URL + DISHES_REST_URL + "/{dishId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateDish(@Valid @RequestBody Dish dish, @PathVariable int dishId, @PathVariable int restaurantId) {
         log.info("update dish {} for restaurant {}", dish, restaurantId);
@@ -93,14 +92,14 @@ public class AdminRestaurantController {
         dishService.update(dish, restaurantId);
     }
 
-    @DeleteMapping(value = DISHES_REST_URL + "/{dishId}")
+    @DeleteMapping(value = REST_URL + DISHES_REST_URL + "/{dishId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteDish(@PathVariable int restaurantId, @PathVariable int dishId) {
         log.info("delete dish {} for restaurant {}", dishId, restaurantId);
         dishService.delete(dishId, restaurantId);
     }
 
-    @GetMapping(value = DISHES_REST_URL + "/{dishId}")
+    @GetMapping(value = REST_URL + DISHES_REST_URL + "/{dishId}")
     public Dish getDish(@PathVariable int restaurantId, @PathVariable int dishId) {
         log.info("get {}", dishId);
         return dishService.get(dishId, restaurantId);
