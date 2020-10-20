@@ -1,5 +1,6 @@
 package com.whiskels.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.whiskels.graduation.HasId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class Dish extends AbstractNamedEntity implements HasId {
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = CASCADE)
     @NotNull
+    @JsonBackReference(value = "restaurantDishes")
     private Restaurant restaurant;
 
     public Dish(LocalDate date, String name, Long price, Restaurant restaurant) {

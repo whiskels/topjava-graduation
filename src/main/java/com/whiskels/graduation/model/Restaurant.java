@@ -1,5 +1,6 @@
 package com.whiskels.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.whiskels.graduation.HasId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,10 +29,12 @@ public class Restaurant extends AbstractNamedEntity implements HasId {
 
     @OneToMany(fetch = LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")
+    @JsonManagedReference(value = "restaurantDishes")
     private List<Dish> dishes;
 
     @OneToMany(fetch = LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")
+    @JsonManagedReference(value = "restaurantVotes")
     private List<Vote> votes;
 
     public Restaurant(Integer id, String name, boolean enabled, Date registered) {

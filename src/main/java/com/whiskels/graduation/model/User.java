@@ -62,7 +62,7 @@ public class User extends AbstractNamedEntity implements HasIdAndEmail {
 
     @OneToMany(fetch = LAZY, mappedBy = "user")
     @OrderBy("date DESC")
-    @JsonManagedReference
+    @JsonManagedReference(value = "userVotes")
     private List<Vote> votes;
 
     public User(User u) {

@@ -2,6 +2,7 @@ package com.whiskels.graduation;
 
 import com.whiskels.graduation.model.Role;
 import com.whiskels.graduation.model.User;
+import com.whiskels.graduation.web.json.JsonUtil;
 
 import java.util.Collections;
 import java.util.Date;
@@ -26,5 +27,9 @@ public class UserTestData {
         User updated = new User(USER);
         updated.setName("UpdatedName");
         return updated;
+    }
+
+    public static String jsonWithPassword(User user, String passw) {
+        return JsonUtil.writeAdditionProps(user, "password", passw);
     }
 }
