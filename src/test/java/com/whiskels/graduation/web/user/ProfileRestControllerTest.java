@@ -13,23 +13,36 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.whiskels.graduation.TestUtil.readFromJson;
-import static com.whiskels.graduation.UserTestData.USER_MATCHER;
+import static com.whiskels.graduation.TestUtil.userHttpBasic;
+import static com.whiskels.graduation.UserTestData.*;
 import static com.whiskels.graduation.web.user.ProfileRestController.REST_URL;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ProfileRestControllerTest extends AbstractControllerTest {
     @Autowired
     private UserService userService;
 
-//    @Test
-//    void get() throws Exception {
-//        perform(MockMvcRequestBuilders.get(REST_URL)
-//                .with(userHttpBasic(USER)))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-//                .andExpect(USER_MATCHER.contentJson(USER));
-//    }
+    @Test
+    void test() throws Exception {
+        ResultActions resultActions = perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk());
+
+        User user = readFromJson(resultActions, User.class);
+        System.out.println(user.toString());
+    }
+
+
+    @Test
+    void get() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(USER_MATCHER.contentJson(USER));
+    }
 
     @Test
     void getUnAuth() throws Exception {
@@ -37,13 +50,13 @@ class ProfileRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 
-//    @Test
-//    void delete() throws Exception {
-//        perform(MockMvcRequestBuilders.delete(REST_URL)
-//                .with(userHttpBasic(USER)))
-//                .andExpect(status().isNoContent());
-//        USER_MATCHER.assertMatch(userService.getAll(), ADMIN);
-//    }
+    @Test
+    void delete() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isNoContent());
+        USER_MATCHER.assertMatch(userService.getAll(), ADMIN);
+    }
 
     @Test
     void register() throws Exception {
@@ -74,15 +87,15 @@ class ProfileRestControllerTest extends AbstractControllerTest {
 //        USER_MATCHER.assertMatch(userService.get(USER_ID), UserUtil.updateFromTo(new User(USER), updatedTo));
 //    }
 
-//    @Test
-//    void getWithVotes() throws Exception {
-//        perform(MockMvcRequestBuilders.get(REST_URL + "/with-votes")
-//                .with(userHttpBasic(USER)))
-//                .andExpect(status().isOk())
-//                .andDo(print())
-//                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-//                .andExpect(USER_MATCHER.contentJson(USER));
-//    }
+    @Test
+    void getWithVotes() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + "/with-votes")
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(USER_MATCHER.contentJson(USER));
+    }
 
 //    @Test
 //    void updateInvalid() throws Exception {
