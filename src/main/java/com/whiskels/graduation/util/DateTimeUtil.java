@@ -3,9 +3,7 @@ package com.whiskels.graduation.util;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -40,5 +38,9 @@ public class DateTimeUtil {
     public static @Nullable
     LocalTime parseLocalTime(@Nullable String str) {
         return StringUtils.isEmpty(str) ? null : LocalTime.parse(str);
+    }
+
+    public static Clock createClock(LocalDate date, LocalTime time) {
+        return Clock.fixed(LocalDateTime.of(date, time).atZone(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
     }
 }

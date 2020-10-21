@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.time.LocalDateTime;
 
 @Slf4j
 @RestController
@@ -31,7 +30,7 @@ public class VoteController {
     @PostMapping
     public ResponseEntity<Vote> vote(@RequestParam int restaurantId, @AuthenticationPrincipal AuthorizedUser authUser) {
         log.info("vote for restaurant: {}", restaurantId);
-        Vote created = voteService.vote(authUser.getId(), restaurantId, LocalDateTime.now());
+        Vote created = voteService.vote(authUser.getId(), restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();

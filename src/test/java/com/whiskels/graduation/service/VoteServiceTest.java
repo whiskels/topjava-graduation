@@ -2,14 +2,18 @@ package com.whiskels.graduation.service;
 
 import com.whiskels.graduation.model.Vote;
 import com.whiskels.graduation.util.exception.NotFoundException;
+import com.whiskels.graduation.util.exception.VoteDeadlineException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.Clock;
 import java.util.List;
 
 import static com.whiskels.graduation.DishTestData.DISH_1_ID;
 import static com.whiskels.graduation.UserTestData.*;
 import static com.whiskels.graduation.VoteTestData.*;
+import static com.whiskels.graduation.model.Vote.VOTE_DEADLINE;
+import static com.whiskels.graduation.util.DateTimeUtil.createClock;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class VoteServiceTest extends AbstractServiceTest {
@@ -17,12 +21,30 @@ class VoteServiceTest extends AbstractServiceTest {
     protected VoteService voteService;
 
     @Test
-    void vote() throws Exception {
+    void voteSimple() throws Exception {
         Vote newVote = getNewVote();
-        Vote created = voteService.vote(newVote.getUser().id(), newVote.getRestaurant().id(), newVote.getDate().atTime(10, 0));
+        Vote created = voteService.vote(newVote.getUser().id(), newVote.getRestaurant().id());
         newVote.setId(created.getId());
         VOTE_MATCHER.assertMatch(created, newVote);
         VOTE_MATCHER.assertMatch(voteService.getByUserIdAAndDate(created.getUser().getId(), created.getDate()), newVote);
+    }
+
+    @Test
+    void voteAgainBeforeDeadline() throws Exception {
+        Clock clock = createClock(VOTE_3.getDate(), VOTE_DEADLINE.minusMinutes(1));
+        voteService.setClock(clock);
+        Vote newVote = getNewVote();
+        Vote created = voteService.vote(newVote.getUser().id(), newVote.getRestaurant().id());
+        newVote.setId(created.getId());
+        VOTE_MATCHER.assertMatch(created, newVote);
+        VOTE_MATCHER.assertMatch(voteService.getByUserIdAAndDate(created.getUser().getId(), created.getDate()), newVote);}
+
+    @Test
+    void voteAgainAfterDeadline() throws Exception {
+        Clock clock = createClock(VOTE_3.getDate(), VOTE_DEADLINE);
+        voteService.setClock(clock);
+        Vote newVote = getNewVote();
+        validateRootCause(() ->voteService.vote(newVote.getUser().id(), newVote.getRestaurant().id()), VoteDeadlineException.class);
     }
 
     @Test
@@ -46,5 +68,4 @@ class VoteServiceTest extends AbstractServiceTest {
     void deleteNotOwn() throws Exception {
         assertThrows(NotFoundException.class, () -> voteService.delete(DISH_1_ID, ADMIN_ID));
     }
-
 }
