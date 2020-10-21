@@ -4,6 +4,7 @@ import com.whiskels.graduation.AuthorizedUser;
 import com.whiskels.graduation.model.User;
 import com.whiskels.graduation.repository.UserRepository;
 import com.whiskels.graduation.to.UserTo;
+import com.whiskels.graduation.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -68,6 +69,7 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void update(UserTo userTo) {
         User user = get(userTo.id());
+        prepareAndSave(UserUtil.updateFromTo(user, userTo));
     }
 
     public User getWithVotes(int id) {

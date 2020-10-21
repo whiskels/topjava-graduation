@@ -75,17 +75,18 @@ class ProfileRestControllerTest extends AbstractControllerTest {
         USER_MATCHER.assertMatch(userService.get(newId), newUser);
     }
 
-//    @Test
-//    void update() throws Exception {
-//        UserTo updatedTo = new UserTo(null, "newName", "user@yandex.ru", "newPassword");
-//        perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-//                .with(userHttpBasic(USER))
-//                .content(JsonUtil.writeValue(updatedTo)))
-//                .andDo(print())
-//                .andExpect(status().isNoContent());
-//
-//        USER_MATCHER.assertMatch(userService.get(USER_ID), UserUtil.updateFromTo(new User(USER), updatedTo));
-//    }
+    @Test
+    void update() throws Exception {
+        UserTo updatedTo = new UserTo(null, "newName", "user@yandex.ru", "newPassword");
+        perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(USER))
+                .content(JsonUtil.writeValue(updatedTo)))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+        System.out.println(userService.get(USER_ID));
+        System.out.println(UserUtil.updateFromTo(new User(USER), updatedTo));
+        USER_MATCHER.assertMatch(userService.get(USER_ID), UserUtil.updateFromTo(new User(USER), updatedTo));
+    }
 
     @Test
     void getWithVotes() throws Exception {
