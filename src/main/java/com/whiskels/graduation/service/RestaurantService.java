@@ -2,6 +2,7 @@ package com.whiskels.graduation.service;
 
 import com.whiskels.graduation.model.Restaurant;
 import com.whiskels.graduation.repository.RestaurantRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
@@ -15,14 +16,11 @@ import static com.whiskels.graduation.util.RepositoryUtil.findById;
 import static com.whiskels.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
+@RequiredArgsConstructor
 public class RestaurantService {
     private static final Sort SORT_NAME_REGISTERED = Sort.by(Sort.Direction.ASC, "name", "registered");
 
     private final RestaurantRepository repository;
-
-    public RestaurantService(RestaurantRepository repository) {
-        this.repository = repository;
-    }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     public Restaurant create(Restaurant restaurant) {

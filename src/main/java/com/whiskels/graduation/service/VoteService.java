@@ -8,6 +8,7 @@ import com.whiskels.graduation.repository.UserRepository;
 import com.whiskels.graduation.repository.VoteRepository;
 import com.whiskels.graduation.util.exception.NotFoundException;
 import com.whiskels.graduation.util.exception.VoteDeadlineException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -20,16 +21,11 @@ import static com.whiskels.graduation.util.RepositoryUtil.findById;
 import static com.whiskels.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
+@RequiredArgsConstructor
 public class VoteService {
     private final VoteRepository voteRepository;
     private final UserRepository userRepository;
     private final RestaurantRepository restaurantRepository;
-
-    public VoteService(VoteRepository repository, UserRepository userRepository, RestaurantRepository restaurantRepository) {
-        this.voteRepository = repository;
-        this.userRepository = userRepository;
-        this.restaurantRepository = restaurantRepository;
-    }
 
     public Vote vote(int userId, int restaurantId, LocalDateTime localDateTime) {
         Assert.notNull(restaurantId, "userId must not be null");

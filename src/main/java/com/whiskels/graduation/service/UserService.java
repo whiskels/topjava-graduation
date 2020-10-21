@@ -4,6 +4,7 @@ import com.whiskels.graduation.AuthorizedUser;
 import com.whiskels.graduation.model.User;
 import com.whiskels.graduation.repository.UserRepository;
 import com.whiskels.graduation.to.UserTo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
@@ -26,15 +27,11 @@ import static com.whiskels.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service("userService")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private static final Sort SORT_NAME_EMAIL = Sort.by(Sort.Direction.ASC, "name", "email");
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @CacheEvict(value = "users", allEntries = true)
     public User create(User user) {

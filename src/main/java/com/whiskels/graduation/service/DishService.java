@@ -3,6 +3,7 @@ package com.whiskels.graduation.service;
 import com.whiskels.graduation.model.Dish;
 import com.whiskels.graduation.repository.DishRepository;
 import com.whiskels.graduation.repository.RestaurantRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -15,14 +16,10 @@ import static com.whiskels.graduation.util.ValidationUtil.checkNew;
 import static com.whiskels.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
+@RequiredArgsConstructor
 public class DishService {
     private final DishRepository dishRepository;
     private final RestaurantRepository restaurantRepository;
-
-    public DishService(DishRepository dishRepository, RestaurantRepository restaurantRepository) {
-        this.dishRepository = dishRepository;
-        this.restaurantRepository = restaurantRepository;
-    }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     public Dish create(Dish dish, int restaurantId) {
