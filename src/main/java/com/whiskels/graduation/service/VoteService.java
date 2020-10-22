@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.Clock;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,14 +51,6 @@ public class VoteService {
             final User user = findById(userRepository, userId);
             return voteRepository.save(new Vote(null, votingLocalDateTime.toLocalDate(), user, restaurant));
         }
-    }
-
-    public void delete(int id, int userId) {
-        checkNotFoundWithId(voteRepository.deleteByIdAndUserId(id, userId) != 0, id);
-    }
-
-    public Vote getByUserIdAAndDate(int userId, LocalDate date) {
-        return checkNotFoundWithId(voteRepository.getByUserIdAndDate(userId, date), userId);
     }
 
     public List<Vote> getAll(int userId) {
