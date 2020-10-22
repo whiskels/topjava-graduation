@@ -89,7 +89,7 @@ public abstract class AbstractUserController {
     }
 
     public User getWithVotes(int id) {
-        log.info("getWithMeals {}", id);
+        log.info("getWithVotes {}", id);
         return service.getWithVotes(id);
     }
 }

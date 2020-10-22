@@ -48,7 +48,6 @@ public class ProfileRestController extends AbstractUserController {
         service.update(userTo);
     }
 
-
     @GetMapping("/with-votes")
     public User getWithVotes(@AuthenticationPrincipal AuthorizedUser authUser) {
         return super.getWithVotes(authUser.getId());

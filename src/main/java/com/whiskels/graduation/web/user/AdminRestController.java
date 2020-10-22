@@ -63,7 +63,7 @@ public class AdminRestController extends AbstractUserController {
     }
 
     @GetMapping("/{id}/with-votes")
-    public User getWithMeals(@PathVariable int id) {
+    public User getWithVotes(@PathVariable int id) {
         return super.getWithVotes(id);
     }
 }
