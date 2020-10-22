@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
+import static com.whiskels.graduation.DishTestData.DISH_1;
 import static com.whiskels.graduation.RestaurantTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -67,8 +68,8 @@ class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void getWithVotesNotFound() throws Exception {
-        assertThrows(NotFoundException.class,
-                () -> service.getWithVotes(NOT_FOUND));
+    void getAllByDishesDate() throws Exception {
+        List<Restaurant> allByDate = service.getAllByDishesDate(DISH_1.getDate());
+        RESTAURANT_MATCHER.assertMatch(allByDate, RESTAURANT_1, RESTAURANT_2, RESTAURANT_3);
     }
 }

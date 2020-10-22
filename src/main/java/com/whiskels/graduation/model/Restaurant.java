@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ import java.util.*;
 
 import static javax.persistence.FetchType.LAZY;
 
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "restaurants_unique_name_idx")})
 @Getter
@@ -31,11 +32,6 @@ public class Restaurant extends AbstractNamedEntity implements HasId {
     @OrderBy("date DESC")
     @JsonManagedReference(value = "restaurantDishes")
     private List<Dish> dishes;
-
-    @OneToMany(fetch = LAZY, mappedBy = "restaurant")
-    @OrderBy("date DESC")
-    @JsonManagedReference(value = "restaurantVotes")
-    private List<Vote> votes;
 
     public Restaurant(Integer id, String name, boolean enabled, Date registered) {
         super(id, name);

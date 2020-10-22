@@ -7,6 +7,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
@@ -44,13 +45,16 @@ public class RestaurantService {
 
     public List<Restaurant> getAllByDishesDate(LocalDate date) {return repository.getAllByDishesDate(date);}
 
-    @CacheEvict(value = "users", allEntries = true)
+    @CacheEvict(value = "restaurants", allEntries = true)
     public void update(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         checkNotFoundWithId(repository.save(restaurant), restaurant.id());
     }
 
-    public Restaurant getWithVotes(int id) {
-        return checkNotFoundWithId(repository.getWithVotes(id), id);
+    @CacheEvict(value = "restaurants", allEntries = true)
+    @Transactional
+    public void enable(int id, boolean enabled) {
+        Restaurant restaurant = get(id);
+        restaurant.setEnabled(enabled);
     }
 }

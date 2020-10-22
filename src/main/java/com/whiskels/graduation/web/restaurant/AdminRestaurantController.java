@@ -84,6 +84,13 @@ public class AdminRestaurantController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void enable(@PathVariable int id, @RequestParam boolean enabled) {
+        log.info(enabled ? "enable {}" : "disable {}", id);
+        restaurantService.enable(id, enabled);
+    }
+
     @PutMapping(value = REST_URL + DISHES_REST_URL + "/{dishId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateDish(@Valid @RequestBody Dish dish, @PathVariable int dishId, @PathVariable int restaurantId) {
