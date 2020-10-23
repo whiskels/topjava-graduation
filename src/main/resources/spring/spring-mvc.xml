@@ -1,6 +1,5 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans"
        xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -10,9 +9,12 @@
 
     <mvc:default-servlet-handler/>
 
-    <context:component-scan base-package="com.whiskels.**.web"/>
+    <context:component-scan base-package="com.whiskels.voting_system.web">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
-    <bean class="com.whiskels.graduation.web.json.JacksonObjectMapper"
+    <bean class="com.whiskels.voting_system.web.json.JacksonObjectMapper"
           id="objectMapper" factory-method="getMapper"/>
 
     <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
@@ -39,10 +41,9 @@
     <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
         <property name="formatters">
             <set>
-                <bean class="com.whiskels.graduation.web.converter.DateTimeFormatters.LocalTimeFormatter"/>
-                <bean class="com.whiskels.graduation.web.converter.DateTimeFormatters.LocalDateFormatter"/>
+                <bean class="com.whiskels.voting_system.web.converter.DateTimeFormatters.LocalTimeFormatter"/>
+                <bean class="com.whiskels.voting_system.web.converter.DateTimeFormatters.LocalDateFormatter"/>
             </set>
         </property>
     </bean>
-
 </beans>

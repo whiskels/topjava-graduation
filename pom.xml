@@ -15,6 +15,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- Build -->
+        <cargo-maven2-plugin.version>1.7.10</cargo-maven2-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+
         <!-- Spring -->
         <spring.version>5.2.6.RELEASE</spring.version>
         <spring.security.version>5.3.3.RELEASE</spring.security.version>
@@ -44,12 +49,13 @@
     </properties>
 
     <build>
-        <finalName>voting-system</finalName>
+        <finalName>voting_system</finalName>
         <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -59,14 +65,61 @@
                 <!--https://junit.org/junit5/docs/current/user-guide/#running-tests-build-maven -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>${cargo-maven2-plugin.version}</version>
+                <configuration>
+                    <container>
+                        <containerId>tomcat9x</containerId>
+                        <artifactInstaller>
+                            <groupId>org.apache.tomcat</groupId>
+                            <artifactId>tomcat</artifactId>
+                            <version>${tomcat.version}</version>
+                        </artifactInstaller>
+                        <systemProperties>
+                            <file.encoding>UTF-8</file.encoding>
+                            <spring.profiles.active>tomcat</spring.profiles.active>
+                        </systemProperties>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.hsqldb</groupId>
+                                <artifactId>hsqldb</artifactId>
+                            </dependency>
+                        </dependencies>
+                    </container>
+                    <deployables>
+                        <deployable>
+                            <groupId>ru</groupId>
+                            <artifactId>voting_system</artifactId>
+                            <type>war</type>
+                            <properties>
+                                <context>${project.build.finalName}</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+                </configuration>
+            </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
-
 
     <dependencies>
         <!-- Logging with SLF4J & LogBack -->
@@ -101,7 +154,7 @@
             <version>${spring-data-jpa.version}</version>
         </dependency>
 
-        <!--security-->
+        <!--Security-->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
