@@ -25,13 +25,13 @@ public class UserRestaurantController {
 
     @GetMapping
     public List<RestaurantTo> getAll() {
-        return getAllByDate(LocalDate.now());
+        log.info("get all");
+        return restaurantService.getAllByDishesDate(LocalDate.now());
     }
 
-    @GetMapping(value = REST_URL + "/{localDate}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<RestaurantTo> getAllByDate(@PathVariable LocalDate localDate) {
-        log.info("get by date {}", localDate);
-        return restaurantService.getAllByDishesDate(localDate);
+    @GetMapping("/by")
+    public List<RestaurantTo> getByDate(@RequestParam LocalDate date) {
+        log.info("get by date {}", date);
+        return restaurantService.getAllByDishesDate(date);
     }
 }

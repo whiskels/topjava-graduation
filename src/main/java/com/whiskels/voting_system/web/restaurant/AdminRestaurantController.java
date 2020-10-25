@@ -70,12 +70,6 @@ public class AdminRestaurantController {
         return restaurantService.get(id);
     }
 
-    @GetMapping("/by")
-    public List<RestaurantTo> getByDate(@RequestParam LocalDate date) {
-        log.info("get by date {}", date);
-        return restaurantService.getAllByDishesDate(date);
-    }
-
     @PostMapping(value = REST_URL + DISHES_REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> createDish(@PathVariable int restaurantId, @Valid @RequestBody Dish dish) {
         log.info("restaurant {} adding dish {}", restaurantId, dish);
