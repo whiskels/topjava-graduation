@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.whiskels.voting_system.DishTestData.DISH_1;
 import static com.whiskels.voting_system.TestUtil.userHttpBasic;
 import static com.whiskels.voting_system.UserTestData.USER;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -24,12 +25,12 @@ class UserRestaurantRestControllerTest extends AbstractControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
-//    @Test
-//    void getAllByDate() throws Exception {
-//        perform(MockMvcRequestBuilders.get(REST_URL + "/" + DISH_1.getDate())
-//                .with(userHttpBasic(USER)))
-//                .andExpect(status().isOk())
-//                .andDo(print())
-//                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-//    }
+    @Test
+    void getAllByDate() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + "/by?date=" + DISH_1.getDate())
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
 }
