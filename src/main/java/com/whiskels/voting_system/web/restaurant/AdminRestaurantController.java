@@ -4,7 +4,6 @@ import com.whiskels.voting_system.model.Dish;
 import com.whiskels.voting_system.model.Restaurant;
 import com.whiskels.voting_system.service.DishService;
 import com.whiskels.voting_system.service.RestaurantService;
-import com.whiskels.voting_system.to.RestaurantTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,8 +14,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.List;
 
 import static com.whiskels.voting_system.util.ValidationUtil.assureIdConsistent;
 import static com.whiskels.voting_system.util.ValidationUtil.checkNew;
@@ -70,6 +67,13 @@ public class AdminRestaurantController {
         return restaurantService.get(id);
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void enable(@PathVariable int id, @RequestParam boolean enabled) {
+        log.info(enabled ? "enable {}" : "disable {}", id);
+        restaurantService.enable(id, enabled);
+    }
+
     @PostMapping(value = REST_URL + DISHES_REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> createDish(@PathVariable int restaurantId, @Valid @RequestBody Dish dish) {
         log.info("restaurant {} adding dish {}", restaurantId, dish);
@@ -79,13 +83,6 @@ public class AdminRestaurantController {
                 .path(REST_URL + DISHES_REST_URL)
                 .buildAndExpand(restaurantId).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
-    }
-
-    @PatchMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void enable(@PathVariable int id, @RequestParam boolean enabled) {
-        log.info(enabled ? "enable {}" : "disable {}", id);
-        restaurantService.enable(id, enabled);
     }
 
     @PutMapping(value = REST_URL + DISHES_REST_URL + "/{dishId}", consumes = MediaType.APPLICATION_JSON_VALUE)
