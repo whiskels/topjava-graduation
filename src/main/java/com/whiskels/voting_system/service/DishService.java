@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class DishService {
     private final RestaurantRepository restaurantRepository;
 
     @CacheEvict(value = "restaurantTos", allEntries = true)
-    public Dish create(Dish dish, int restaurantId) {
+    public Dish create(@Valid Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
         checkNew(dish);
         dish.setRestaurant(findById(restaurantRepository, restaurantId));
@@ -30,7 +31,7 @@ public class DishService {
     }
 
     @CacheEvict(value = "restaurantTos", allEntries = true)
-    public Dish update(Dish dish, int restaurantId) {
+    public Dish update(@Valid Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
         checkNotFoundWithId(get(dish.id(), restaurantId), dish.id());
         dish.setRestaurant(findById(restaurantRepository, restaurantId));

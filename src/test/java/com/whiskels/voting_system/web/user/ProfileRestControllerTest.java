@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.whiskels.voting_system.TestUtil.readFromJson;
 import static com.whiskels.voting_system.TestUtil.userHttpBasic;
@@ -97,28 +99,25 @@ class ProfileRestControllerTest extends AbstractControllerTest {
                 .andExpect(USER_MATCHER.contentJson(USER));
     }
 
-//    @Test
-//    void updateInvalid() throws Exception {
-//        UserTo updatedTo = new UserTo(null, null, "password", null);
-//        perform(MockMvcRequestBuilders.put(REST_URL)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .with(userHttpBasic(USER))
-//                .content(JsonUtil.writeValue(updatedTo)))
-//                .andDo(print())
-//                .andExpect(status().isUnprocessableEntity())
-//                .andExpect(errorType(VALIDATION_ERROR));
-//    }
-//
-//    @Test
-//    @Transactional(propagation = Propagation.NEVER)
-//    void updateDuplicate() throws Exception {
-//        UserTo updatedTo = new UserTo(null, "newName", "admin@gmail.com", "newPassword");
-//        perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-//                .with(userHttpBasic(USER))
-//                .content(JsonUtil.writeValue(updatedTo)))
-//                .andDo(print())
-//                .andExpect(status().isUnprocessableEntity())
-//                .andExpect(errorType(VALIDATION_ERROR))
-//                .andExpect(detailMessage(EXCEPTION_DUPLICATE_EMAIL));
-//    }
+    @Test
+    void updateInvalid() throws Exception {
+        UserTo updatedTo = new UserTo(null, null, "password", null);
+        perform(MockMvcRequestBuilders.put(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(USER))
+                .content(JsonUtil.writeValue(updatedTo)))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void updateDuplicate() throws Exception {
+        UserTo updatedTo = new UserTo(null, "newName", "admin@gmail.com", "newPassword");
+        perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(USER))
+                .content(JsonUtil.writeValue(updatedTo)))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
 }
