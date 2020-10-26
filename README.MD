@@ -2,7 +2,7 @@
 TopJava #20 Graduation Project
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/50cff6b344b54b13b8701a40a40cf18c)](https://www.codacy.com/manual/whiskels/topjava-graduation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=whiskels/topjava-graduation&amp;utm_campaign=Badge_Grade)
-
+[![Build Status](https://travis-ci.org/whiskels/Restaurant-Voting-REST-API.svg?branch=master)](https://travis-ci.org/whiskels/Restaurant-Voting-REST-API)
 ## Task
 
 [Link](https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md)
@@ -31,6 +31,7 @@ P.S.: Make sure everything works with latest version that is on github :)
 P.P.S.: Assume that your API will be used by a frontend developer to build frontend on top of that.
 
 ## API
+Application is deployed at application context `voting_system`.
 Curl commands were tested using Git Bash
 
 ### Unauthorized visitors
