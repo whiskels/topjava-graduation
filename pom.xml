@@ -5,7 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.whiskels</groupId>
-    <artifactId>topjava-graduation</artifactId>
+    <artifactId>voting_system</artifactId>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <name>Restaurant Voting System REST API</name>
@@ -95,7 +96,7 @@
                     </container>
                     <deployables>
                         <deployable>
-                            <groupId>ru</groupId>
+                            <groupId>com.whiskels</groupId>
                             <artifactId>voting_system</artifactId>
                             <type>war</type>
                             <properties>
