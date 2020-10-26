@@ -30,155 +30,155 @@ P.S.: Make sure everything works with latest version that is on github :)
 
 P.P.S.: Assume that your API will be used by a frontend developer to build frontend on top of that.
 
-##API
+## API
 Curl commands were tested using Git Bash
 
-###Unauthorized visitors
-####Register
+### Unauthorized visitors
+#### Register
 
 ```curl -s -X POST -d '{"name":"newName","email":"newemail@ya.ru","password":"newPassword"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting_system/profile/register```
 
 Produces:
 ```{"id":100043,"name":"newName","email":"newemail@ya.ru","enabled":true,"registered":"2020-10-26T16:54:23.802+00:00","roles":["USER"]}```
 
-###Authorized user
-####Get user profile
+### Authorized user
+#### Get user profile
 
 ```curl -s  'http://localhost:8080/voting_system/profile' --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100001,"name":"Admin","email":"admin@gmail.com","enabled":true,"registered":"2020-10-26T16:35:35.037+00:00","roles":["ADMIN"],"votes":null}```
 
-####Get user profile with votes
+#### Get user profile with votes
 
 ```curl -s  'http://localhost:8080/voting_system/profile/with-votes' --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100001,"name":"Admin","email":"admin@gmail.com","enabled":true,"registered":"2020-10-26T16:35:35.037+00:00","roles":["ADMIN"],"votes":[{"id":100011,"date":"2020-08-12"},{"id":100010,"date":"2020-08-11"},{"id":100009,"date":"2020-08-10"}]}```
 
-####Update user (user updates himself)
+#### Update user (user updates himself)
 
 ```curl -s -X PUT -d '{"name":"newName","email":"newemail@ya.ru","password":"newPassword"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting_system/profile/ --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100001,"name":"newName","email":"newemail@ya.ru","enabled":true,"registered":"2020-10-26T16:58:31.488+00:00","roles":["ADMIN"],"votes":null}```
 
-####Delete user (user deletes himself)
+#### Delete user (user deletes himself)
 
 ```curl -s -X DELETE  'http://localhost:8080/voting_system/profile' --user admin@gmail.com:admin```
 
-####Get actual list of restaurants (list consists of transfer objects and is sorted by daily rating)
+#### Get actual list of restaurants (list consists of transfer objects and is sorted by daily rating)
 
 ```curl -s 'http://localhost:8080/voting_system/restaurants' --user admin@gmail.com:admin```
 
 result is null as no restaurants have menus today :)
 
-####Get list of restaurants by date
+#### Get list of restaurants by date
 
 ```curl -s 'http://localhost:8080/voting_system/restaurants/by?date=2020-08-10' --user admin@gmail.com:admin```
 
 Produces
 ```[{"id":100002,"name":"Corner Grill","rating":1,"dailyMenu":[{"id":100013,"name":"Caprese Burger","price":500,"date":"2020-08-10"},{"id":100014,"name":"Borsch","price":300,"date":"2020-08-10"},{"id":100015,"name":"New York Cheesecake","price":350,"date":"2020-08-10"}]},{"id":100003,"name":"Bluefin","rating":1,"dailyMenu":[{"id":100023,"name":"California Roll","price":1000,"date":"2020-08-10"},{"id":100024,"name":"Philly roll","price":1200,"date":"2020-08-10"},{"id":100025,"name":"Salmon roll","price":700,"date":"2020-08-10"}]},{"id":100004,"name":"McDonalds","rating":0,"dailyMenu":[{"id":100035,"name":"MacCombo","price":300,"date":"2020-08-10"},{"id":100039,"name":"Kobe Steak","price":10000,"date":"2020-08-10"}]}]```
 
-####Vote for restaurant
+#### Vote for restaurant
 
 ```curl -s -X POST http://localhost:8080/voting_system/votes?restaurantId=100002 --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100043,"date":"2020-10-26"}```
 
-###Admin
-####Get all users
+### Admin
+#### Get all users
 
 ```curl -s  'http://localhost:8080/voting_system/admin/users' --user admin@gmail.com:admin```
 
 Produces
 ```[{"id":100001,"name":"Admin","email":"admin@gmail.com","enabled":true,"registered":"2020-10-26T17:00:30.303+00:00","roles":["ADMIN"],"votes":null},{"id":100000,"name":"User","email":"user@yandex.ru","enabled":true,"registered":"2020-10-26T17:00:30.303+00:00","roles":["USER"],"votes":null}]```
 
-####Get one user
+#### Get one user
 
 ```curl -s  'http://localhost:8080/voting_system/admin/users/100000' --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100000,"name":"User","email":"user@yandex.ru","enabled":true,"registered":"2020-10-26T17:00:30.303+00:00","roles":["USER"],"votes":null}```
 
-####Get user by e-mail
+#### Get user by e-mail
 
 ```curl -s  'http://localhost:8080/voting_system/admin/users/by?email=user@yandex.ru' --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100000,"name":"User","email":"user@yandex.ru","enabled":true,"registered":"2020-10-26T17:00:30.303+00:00","roles":["USER"],"votes":null}```
 
-####Get user with votes
+#### Get user with votes
 
 ```curl -s  'http://localhost:8080/voting_system/admin/users/100000/with-votes' --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100000,"name":"User","email":"user@yandex.ru","enabled":true,"registered":"2020-10-26T17:19:10.174+00:00","roles":["USER"],"votes":[{"id":100008,"date":"2020-08-12"},{"id":100007,"date":"2020-08-11"},{"id":100006,"date":"2020-08-10"}]}```
 
-####Enable/disable user
+#### Enable/disable user
 
 ```curl -s -X PATCH 'http://localhost:8080/voting_system/admin/users/100000?enabled=false' --user admin@gmail.com:admin```
 
-####Create new user
+#### Create new user
 
 ```curl -s -X POST -d '{"name":"newName","email":"newemail@ya.ru","password":"newPassword"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting_system/admin/users --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100044,"name":"newName","email":"newemail@ya.ru","enabled":true,"registered":"2020-10-26T17:14:38.220+00:00"}```
 
-####Update user
+#### Update user
 
 ```curl -s -X PUT -d '{"name":"newName","email":"newemail@ya.ru","password":"newPassword"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting_system/admin/users/100000 --user admin@gmail.com:admin```
 
-####Delete user
+#### Delete user
 
 ```curl -s -X DELETE  'http://localhost:8080/voting_system/admin/users/100000' --user admin@gmail.com:admin```
 
-####Get restaurant with its daily dishes and votes
+#### Get restaurant with its daily dishes and votes
 
 ```curl -s 'http://localhost:8080/voting_system/admin/restaurants/100002' --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100002,"name":"Corner Grill","enabled":true,"registered":"2020-10-26T17:19:10.176+00:00","dishes":null,"votes":null}```
 
-####Create new restaurant
+#### Create new restaurant
 
 ```curl -s -X POST -d '{"name":"New","enabled":true,"registered":"2020-10-26T17:28:39.214+00:00"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting_system/admin/restaurants/ --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100043,"name":"New","enabled":true,"registered":"2020-10-26T17:28:39.214+00:00"}```
 
-####Update restaurant
+#### Update restaurant
 
 ```curl -s -X PUT -d '{"id":100002,"name":"UpdatedName","enabled":true,"registered":"2020-10-26T17:30:01.415+00:00"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting_system/admin/restaurants/100002 --user admin@gmail.com:admin```
 
-####Enable/disable restaurant
+#### Enable/disable restaurant
 
 ```curl -s -X PATCH 'http://localhost:8080/voting_system/admin/restaurants/100002?enabled=false' --user admin@gmail.com:admin```
 
-####Delete restaurant
+#### Delete restaurant
 
 ```curl -s -X DELETE 'http://localhost:8080/voting_system/admin/restaurants/100002' --user admin@gmail.com:admin```
 
-####Get restaurant's dish
+#### Get restaurant's dish
 
 ```curl -s 'http://localhost:8080/voting_system/admin/restaurants/100002/dishes/100013' --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100013,"name":"Caprese Burger","price":500,"date":"2020-08-10"}```
 
-####Create new dish
+#### Create new dish
 
 ```curl -s -X POST -d '{"name":"New","price":1000,"date":"2020-10-26"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting_system/admin/restaurants/100002/dishes --user admin@gmail.com:admin```
 
 Produces
 ```{"id":100044,"name":"New","price":1000,"date":"2020-10-26"}```
 
-####Update dish
+#### Update dish
 
 ```curl -s -X PUT -d '{"id":100013,"name":"UpdatedName","price":500,"date":"2020-08-10"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting_system/admin/restaurants/100002/dishes/100013 --user admin@gmail.com:admin```
 
-####Delete dish
+#### Delete dish
 
 ```curl -s -X DELETE 'http://localhost:8080/voting_system/admin/restaurants/100002/dishes/100013' --user admin@gmail.com:admin```
