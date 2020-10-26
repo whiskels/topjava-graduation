@@ -38,11 +38,9 @@ public class AdminRestController extends AbstractUserController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @Override
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
-        super.delete(id);
+    @GetMapping("/by")
+    public User getByMail(@RequestParam String email) {
+        return super.getByMail(email);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -50,11 +48,6 @@ public class AdminRestController extends AbstractUserController {
     public void update(@RequestBody User user, @PathVariable int id) throws BindException {
         checkAndValidateForUpdate(user, id);
         service.update(user);
-    }
-
-    @GetMapping("/by")
-    public User getByMail(@RequestParam String email) {
-        return super.getByMail(email);
     }
 
     @Override
@@ -67,5 +60,12 @@ public class AdminRestController extends AbstractUserController {
     @GetMapping("/{id}/with-votes")
     public User getWithVotes(@PathVariable int id) {
         return super.getWithVotes(id);
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id) {
+        super.delete(id);
     }
 }

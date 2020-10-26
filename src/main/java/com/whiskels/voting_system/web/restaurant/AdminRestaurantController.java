@@ -36,6 +36,12 @@ public class AdminRestaurantController {
         this.dishService = dishService;
     }
 
+    @GetMapping("/{id}")
+    public Restaurant get(@PathVariable int id) {
+        log.info("get {}", id);
+        return restaurantService.get(id);
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@Valid @RequestBody Restaurant restaurant) {
         log.info("create {}", restaurant);
@@ -59,12 +65,6 @@ public class AdminRestaurantController {
     public void delete(@PathVariable int id) {
         log.info("delete {}", id);
         restaurantService.delete(id);
-    }
-
-    @GetMapping("/{id}")
-    public Restaurant get(@PathVariable int id) {
-        log.info("get {}", id);
-        return restaurantService.get(id);
     }
 
     @PatchMapping("/{id}")

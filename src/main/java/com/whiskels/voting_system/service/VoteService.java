@@ -10,6 +10,7 @@ import com.whiskels.voting_system.util.exception.NotFoundException;
 import com.whiskels.voting_system.util.exception.VoteDeadlineException;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -32,9 +33,8 @@ public class VoteService {
     @Setter
     private Clock clock = Clock.systemDefaultZone();
 
+    @CacheEvict(value = "restaurantTos", allEntries = true)
     public Vote vote(int userId, int restaurantId) {
-        Assert.notNull(restaurantId, "userId must not be null");
-        Assert.notNull(userId, "restaurantId must not be null");
         LocalDateTime votingLocalDateTime = LocalDateTime.now(clock);
         try {
             Vote vote = checkNotFoundWithId(voteRepository.getByUserIdAndDate(userId, votingLocalDateTime.toLocalDate()), userId);
