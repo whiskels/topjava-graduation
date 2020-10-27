@@ -1,8 +1,8 @@
-DELETE FROM user_roles;
-DELETE FROM votes;
+DELETE FROM user_role;
+DELETE FROM vote;
 DELETE FROM users;
-DELETE FROM restaurants;
-DELETE FROM dishes;
+DELETE FROM restaurant;
+DELETE FROM dish;
 
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
