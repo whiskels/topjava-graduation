@@ -8,6 +8,7 @@
         <http-basic/>
         <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
         <intercept-url pattern="/profile/register" access="isAnonymous()"/>
+        <intercept-url pattern="/restaurants" access="isAnonymous()"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
     </http>
