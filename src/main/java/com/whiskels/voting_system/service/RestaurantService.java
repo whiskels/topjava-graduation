@@ -2,7 +2,6 @@ package com.whiskels.voting_system.service;
 
 import com.whiskels.voting_system.model.Restaurant;
 import com.whiskels.voting_system.repository.RestaurantRepository;
-import com.whiskels.voting_system.repository.VoteRepository;
 import com.whiskels.voting_system.to.RestaurantTo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -22,7 +21,6 @@ import static com.whiskels.voting_system.util.ValidationUtil.checkNotFoundWithId
 @Service
 @RequiredArgsConstructor
 public class RestaurantService {
-    private final VoteRepository voteRepository;
     private final RestaurantRepository restaurantRepository;
 
     @CacheEvict(value = "restaurantTos", allEntries = true)
@@ -55,7 +53,7 @@ public class RestaurantService {
                         r.getName(),
                         r.getVotes().stream().filter(vote -> vote.getDate().isEqual(date)).count(),
                         r.getDishes()))
-                .sorted(Comparator.comparing(RestaurantTo::getRating).reversed())
+                .sorted(Comparator.comparing(RestaurantTo::getRating).reversed().thenComparing(RestaurantTo::getName))
                 .collect(Collectors.toList());
     }
 

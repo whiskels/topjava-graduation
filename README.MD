@@ -40,7 +40,7 @@ Curl commands were tested using Git Bash
 ```curl -s -X POST -d '{"name":"newName","email":"newemail@ya.ru","password":"newPassword"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting_system/profile/register```
 
 Produces:
-```{"id":100043,"name":"newName","email":"newemail@ya.ru","enabled":true,"registered":"2020-10-26T16:54:23.802+00:00","roles":["USER"]}```
+```[{"id":100002,"name":"Corner Grill","rating":1,"dailyMenu":[{"id":100022,"name":"Combo box","price":999,"date":"2020-10-27"}]},{"id":100003,"name":"Bluefin","rating":0,"dailyMenu":[{"id":100032,"name":"California Roll","price":1000,"date":"2020-10-27"},{"id":100033,"name":"Philly roll","price":1200,"date":"2020-10-27"},{"id":100034,"name":"Salmon roll","price":700,"date":"2020-10-27"}]},{"id":100004,"name":"McDonalds","rating":0,"dailyMenu":[{"id":100038,"name":"MacCombo","price":300,"date":"2020-10-27"},{"id":100042,"name":"Something expensive","price":100000,"date":"2020-10-27"}]}]```
 
 #### Get actual list of restaurants (list consists of transfer objects and is sorted by daily rating)
 
@@ -80,7 +80,8 @@ Produces
 ```curl -s 'http://localhost:8080/voting_system/restaurants/by?date=2020-08-10' --user admin@gmail.com:admin```
 
 Produces
-```[{"id":100002,"name":"Corner Grill","rating":1,"dailyMenu":[{"id":100013,"name":"Caprese Burger","price":500,"date":"2020-08-10"},{"id":100014,"name":"Borsch","price":300,"date":"2020-08-10"},{"id":100015,"name":"New York Cheesecake","price":350,"date":"2020-08-10"}]},{"id":100003,"name":"Bluefin","rating":1,"dailyMenu":[{"id":100023,"name":"California Roll","price":1000,"date":"2020-08-10"},{"id":100024,"name":"Philly roll","price":1200,"date":"2020-08-10"},{"id":100025,"name":"Salmon roll","price":700,"date":"2020-08-10"}]},{"id":100004,"name":"McDonalds","rating":0,"dailyMenu":[{"id":100035,"name":"MacCombo","price":300,"date":"2020-08-10"},{"id":100039,"name":"Kobe Steak","price":10000,"date":"2020-08-10"}]}]```
+```[{"id":100003,"name":"Bluefin","rating":1,"dailyMenu":[{"id":100023,"name":"California Roll","price":1000,"date":"2020-08-10"},{"id":100024,"name":"Philly roll","price":1200,"date":"2020-08-10"},{"id":100025,"name":"Salmon roll","price":700,"date":"2020-08-10"}]},{"id":100002,"name":"Corner Grill","rating":1,"dailyMenu":[{"id":100013,"name":"Caprese Burger","price":500,"date":"2020-08-10"},{"id":100014,"name":"Borsch","price":300,"date":"2020-08-10"},{"id":100015,"name":"New York Cheesecake","price":350,"date":"2020-08-10"}]},{"id":100004,"name":"McDonalds","rating":0,"dailyMenu":[{"id":100035,"name":"MacCombo","price":300,"date":"2020-08-10"},{"id":100039,"name":"Kobe Steak","price":10000,"date":"2020-08-10"}]}]```
+
 
 #### Vote for restaurant
 
