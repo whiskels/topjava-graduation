@@ -10,17 +10,17 @@ INSERT INTO users (name, email, password)
 VALUES ('User', 'user@yandex.ru', '{noop}password'),
        ('Admin', 'admin@gmail.com', '{noop}admin');
 
-INSERT INTO user_roles (role, user_id)
+INSERT INTO user_role (role, user_id)
 VALUES ('USER', 100000),
        ('ADMIN', 100001);
 
-INSERT INTO restaurants (name)
+INSERT INTO restaurant (name)
 VALUES ('Corner Grill'),
        ('Bluefin'),
        ('McDonalds'),
        ('Caesars Palace');
 
-INSERT INTO votes (user_id, restaurant_id, date)
+INSERT INTO vote (user_id, restaurant_id, date)
 VALUES (100000, 100002, '2020-08-10'),
        (100000, 100002, '2020-08-11'),
        (100000, 100004, '2020-08-12'),
@@ -29,7 +29,7 @@ VALUES (100000, 100002, '2020-08-10'),
        (100001, 100005, '2020-08-12'),
        (100001, 100002, now());
 
-INSERT INTO dishes (restaurant_id, name, price, date)
+INSERT INTO dish (restaurant_id, name, price, date)
 VALUES (100002, 'Caprese Burger', 500, '2020-08-10'),
  (100002, 'Borsch', 300, '2020-08-10'),
  (100002, 'New York Cheesecake', 350, '2020-08-10'),
