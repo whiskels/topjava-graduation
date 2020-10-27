@@ -55,7 +55,7 @@ public class RestaurantService {
                         r.getName(),
                         r.getVotes().stream().filter(vote -> vote.getDate().isEqual(date)).count(),
                         r.getDishes()))
-                .sorted(Comparator.comparing(RestaurantTo::getRating).reversed())
+                .sorted(Comparator.comparing(RestaurantTo::getRating).reversed().thenComparing(RestaurantTo::getName))
                 .collect(Collectors.toList());
     }
 
