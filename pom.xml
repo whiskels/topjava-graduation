@@ -24,7 +24,7 @@
         <!-- Spring -->
         <spring.version>5.2.6.RELEASE</spring.version>
         <spring.security.version>5.3.3.RELEASE</spring.security.version>
-        <spring-data-jpa.version>2.3.2.RELEASE</spring-data-jpa.version>
+        <spring-data-jpa.version>2.3.4.RELEASE</spring-data-jpa.version>
 
 
         <jackson-json.version>2.11.1</jackson-json.version>
