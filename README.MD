@@ -72,7 +72,8 @@ Produces
 
 ```curl -s 'http://localhost:8080/voting_system/restaurants' --user admin@gmail.com:admin```
 
-result is null as no restaurants have menus today :)
+Produces
+```[{"id":100002,"name":"Corner Grill","rating":1,"dailyMenu":[{"id":100022,"name":"Combo box","price":999,"date":"2020-10-27"}]},{"id":100004,"name":"McDonalds","rating":0,"dailyMenu":[{"id":100038,"name":"MacCombo","price":300,"date":"2020-10-27"},{"id":100042,"name":"Something expensive","price":100000,"date":"2020-10-27"}]},{"id":100003,"name":"Bluefin","rating":0,"dailyMenu":[{"id":100032,"name":"California Roll","price":1000,"date":"2020-10-27"},{"id":100033,"name":"Philly roll","price":1200,"date":"2020-10-27"},{"id":100034,"name":"Salmon roll","price":700,"date":"2020-10-27"}]}]```
 
 #### Get list of restaurants by date
 
