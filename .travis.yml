@@ -11,7 +11,3 @@ cache:
 branches:
   only:
   - master
-
-#https://docs.travis-ci.com/user/environment-variables#Default-Environment-Variables
-env:
-- TOPJAVA_ROOT=$TRAVIS_BUILD_DIR
