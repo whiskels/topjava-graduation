@@ -6,6 +6,7 @@ import com.whiskels.voting_system.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ public class DishService {
     private final RestaurantRepository restaurantRepository;
 
     @CacheEvict(value = "restaurantTos", allEntries = true)
+    @Transactional
     public Dish create(@Valid Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
         checkNew(dish);
@@ -31,6 +33,7 @@ public class DishService {
     }
 
     @CacheEvict(value = "restaurantTos", allEntries = true)
+    @Transactional
     public Dish update(@Valid Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
         checkNotFoundWithId(get(dish.id(), restaurantId), dish.id());
@@ -38,6 +41,7 @@ public class DishService {
         return checkNotFoundWithId(dishRepository.save(dish), dish.id());
     }
 
+    @CacheEvict(value = "restaurantTos", allEntries = true)
     public void delete(int id, int restaurantId) {
         checkNotFoundWithId(dishRepository.delete(id, restaurantId) != 0, id);
     }
