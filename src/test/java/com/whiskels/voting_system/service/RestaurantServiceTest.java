@@ -64,7 +64,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void getAllByDishesDate() throws Exception {
-        List<RestaurantTo> allByDate = service.getAllByDishesDate(DISH_1.getDate());
+        List<RestaurantTo> allByDate = service.getAllByDishesDate(DISH_1.getLocalDate());
 
         allByDate.forEach(System.out::println);
     }

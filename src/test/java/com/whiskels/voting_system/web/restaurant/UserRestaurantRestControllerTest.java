@@ -27,7 +27,7 @@ class UserRestaurantRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getAllByDate() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "/by?date=" + DISH_1.getDate())
+        perform(MockMvcRequestBuilders.get(REST_URL + "/by?date=" + DISH_1.getLocalDate())
                 .with(userHttpBasic(USER)))
                 .andDo(print())
                 .andExpect(status().isOk())

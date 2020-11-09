@@ -23,22 +23,22 @@ class VoteServiceTest extends AbstractServiceTest {
         Vote created = voteService.vote(newVote.getUser().id(), newVote.getRestaurant().id());
         newVote.setId(created.getId());
         VOTE_MATCHER.assertMatch(created, newVote);
-        VOTE_MATCHER.assertMatch(voteService.getByUserIdAndDate(created.getUser().getId(), created.getDate()), newVote);
+        VOTE_MATCHER.assertMatch(voteService.getByUserIdAndDate(created.getUser(), created.getLocalDate()), newVote);
     }
 
     @Test
     void voteAgainBeforeDeadline() throws Exception {
-        Clock clock = createClock(VOTE_3.getDate(), VOTE_DEADLINE.minusMinutes(1));
+        Clock clock = createClock(VOTE_3.getLocalDate(), VOTE_DEADLINE.minusMinutes(1));
         voteService.setClock(clock);
         Vote newVote = getNewVote();
         Vote created = voteService.vote(newVote.getUser().id(), newVote.getRestaurant().id());
         newVote.setId(created.getId());
         VOTE_MATCHER.assertMatch(created, newVote);
-        VOTE_MATCHER.assertMatch(voteService.getByUserIdAndDate(created.getUser().getId(), created.getDate()), newVote);}
+        VOTE_MATCHER.assertMatch(voteService.getByUserIdAndDate(created.getUser(), created.getLocalDate()), newVote);}
 
     @Test
     void voteAgainAfterDeadline() throws Exception {
-        Clock clock = createClock(VOTE_3.getDate(), VOTE_DEADLINE);
+        Clock clock = createClock(VOTE_3.getLocalDate(), VOTE_DEADLINE);
         voteService.setClock(clock);
         Vote newVote = getNewVote();
         validateRootCause(() ->voteService.vote(newVote.getUser().id(), newVote.getRestaurant().id()), VoteDeadlineException.class);

@@ -32,13 +32,13 @@ public class Restaurant extends AbstractNamedEntity implements HasId {
     private Date registered = new Date();
 
     @OneToMany(fetch = LAZY, mappedBy = "restaurant")
-    @OrderBy("date DESC")
+    @OrderBy("localDate DESC")
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonManagedReference(value = "restaurantDishes")
     private Set<Dish> dishes;
 
     @OneToMany(fetch = LAZY, mappedBy = "restaurant")
-    @OrderBy("date DESC")
+    @OrderBy("localDate DESC")
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonManagedReference(value = "restaurantVotes")
     private Set<Vote> votes;

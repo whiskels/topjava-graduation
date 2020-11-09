@@ -21,7 +21,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     int delete(@Param("id") int id);
 
     @Query("SELECT DISTINCT new com.whiskels.voting_system.to.RestaurantTo(r.id, r.name, count(vote))  " +
-            "FROM Restaurant r LEFT OUTER JOIN Vote vote ON r.id = vote.restaurant.id AND vote.date=:date " +
+            "FROM Restaurant r LEFT OUTER JOIN Vote vote ON r.id = vote.restaurant.id AND vote.localDate=:date " +
             "GROUP BY r.id ORDER BY count(vote) DESC, r.name ASC")
     List<RestaurantTo> getAllByDate(@Param("date") LocalDate date);
 }

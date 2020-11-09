@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Clock;
 import java.time.LocalDate;
@@ -33,28 +34,31 @@ public class VoteService {
     private Clock clock = Clock.systemDefaultZone();
 
     @CacheEvict(value = "restaurantTos", allEntries = true)
+    @Transactional
     public Vote vote(int userId, int restaurantId) {
         LocalDateTime votingLocalDateTime = LocalDateTime.now(clock);
+        final Restaurant restaurant = findById(restaurantRepository, restaurantId);
+        final User user = findById(userRepository, userId);
+        Vote vote;
         try {
-            Vote vote = checkNotFoundWithId(voteRepository.getByUserIdAndDate(userId, votingLocalDateTime.toLocalDate()), userId);
-            if (votingLocalDateTime.toLocalTime().isBefore(VOTE_DEADLINE)) {
-                if (vote.getRestaurant().id() != restaurantId) {
-                    vote.setRestaurant(findById(restaurantRepository, restaurantId));
-                    return voteRepository.save(vote);
-                }
-                return vote;
-            } else {
-                throw new VoteDeadlineException("Vote deadline has already passed");
-            }
+            vote = getByUserIdAndDate(user, votingLocalDateTime.toLocalDate());
         } catch (NotFoundException e) {
-            final Restaurant restaurant = findById(restaurantRepository, restaurantId);
-            final User user = findById(userRepository, userId);
             return voteRepository.save(new Vote(null, votingLocalDateTime.toLocalDate(), user, restaurant));
+        }
+
+        if (votingLocalDateTime.toLocalTime().isBefore(VOTE_DEADLINE)) {
+            if (vote.getRestaurant().id() != restaurantId) {
+                vote.setRestaurant(restaurant);
+                return voteRepository.save(vote);
+            }
+            return vote;
+        } else {
+            throw new VoteDeadlineException("Vote deadline has already passed");
         }
     }
 
-    public Vote getByUserIdAndDate(int userId, LocalDate date) {
-        return checkNotFoundWithId(voteRepository.getByUserIdAndDate(userId, date), userId);
+    public Vote getByUserIdAndDate(User user, LocalDate date) {
+        return checkNotFoundWithId(voteRepository.getByUserAndLocalDate(user, date), user.id());
     }
 
     public List<Vote> getAll(int userId) {

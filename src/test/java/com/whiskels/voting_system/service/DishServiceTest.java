@@ -78,6 +78,6 @@ class DishServiceTest extends AbstractServiceTest {
 
     @Test
     void createWithException() throws Exception {
-        validateRootCause(() -> service.create(new Dish(null, DISH_1.getDate(), DISH_1.getName(), 1000L, DISH_1.getRestaurant()), RESTAURANT_1_ID), HsqlException.class);
+        validateRootCause(() -> service.create(new Dish(null, DISH_1.getLocalDate(), DISH_1.getName(), 1000L, DISH_1.getRestaurant()), RESTAURANT_1_ID), HsqlException.class);
     }
 }
