@@ -1,7 +1,6 @@
 package com.whiskels.voting_system.to;
 
 import com.whiskels.voting_system.HasId;
-import com.whiskels.voting_system.model.Dish;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,7 +9,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
