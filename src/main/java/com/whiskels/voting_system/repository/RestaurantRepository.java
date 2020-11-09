@@ -1,7 +1,7 @@
 package com.whiskels.voting_system.repository;
 
 import com.whiskels.voting_system.model.Restaurant;
-import org.springframework.data.jpa.repository.EntityGraph;
+import com.whiskels.voting_system.to.RestaurantTo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +20,8 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     @Query("DELETE FROM Restaurant r WHERE r.id=:id")
     int delete(@Param("id") int id);
 
-    @EntityGraph(attributePaths = {"dishes", "votes"})
-    List<Restaurant> getAllByDishesDate(LocalDate dishesDate);
+    @Query("SELECT DISTINCT new com.whiskels.voting_system.to.RestaurantTo(r.id, r.name, count(vote))  " +
+            "FROM Restaurant r LEFT OUTER JOIN Vote vote ON r.id = vote.restaurant.id AND vote.date=:date " +
+            "GROUP BY r.id ORDER BY count(vote) DESC, r.name ASC")
+    List<RestaurantTo> getAllByDate(@Param("date") LocalDate date);
 }

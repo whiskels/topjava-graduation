@@ -12,9 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.whiskels.voting_system.util.RepositoryUtil.findById;
 import static com.whiskels.voting_system.util.ValidationUtil.checkNotFoundWithId;
@@ -41,7 +39,7 @@ public class RestaurantService {
     }
 
     /**
-     * Used to get restaurants with their daily dishes sorted by their daily rating (NOT overall!)
+     * Used to get restaurants sorted by their daily rating (NOT overall!)
      *
      * @param date on which list is created
      * @return list of RestaurantTo's sorted by their daily rating
@@ -49,14 +47,7 @@ public class RestaurantService {
     @Cacheable("restaurantTos")
     @Transactional
     public List<RestaurantTo> getAllByDishesDate(LocalDate date) {
-        return restaurantRepository.getAllByDishesDate(date).stream()
-                .map(r -> new RestaurantTo(
-                        r.id(),
-                        r.getName(),
-                        r.getVotes().stream().filter(vote -> vote.getDate().isEqual(date)).count(),
-                        r.getDishes()))
-                .sorted(Comparator.comparing(RestaurantTo::getRating).reversed().thenComparing(RestaurantTo::getName))
-                .collect(Collectors.toList());
+        return restaurantRepository.getAllByDate(date);
     }
 
     @CacheEvict(value = "restaurantTos", allEntries = true)
