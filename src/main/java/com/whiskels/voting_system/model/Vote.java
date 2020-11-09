@@ -22,9 +22,9 @@ import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 public class Vote extends AbstractBaseEntity {
     public static final LocalTime VOTE_DEADLINE = LocalTime.of(11, 0);
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "added", nullable = false)
     @NotNull
-    private LocalDate date = LocalDate.now();
+    private LocalDate added = LocalDate.now();
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -40,13 +40,13 @@ public class Vote extends AbstractBaseEntity {
     @JsonBackReference(value = "restaurantVotes")
     private Restaurant restaurant;
 
-    public Vote(LocalDate date, User user, Restaurant restaurant) {
-        this(null, date, user, restaurant);
+    public Vote(LocalDate added, User user, Restaurant restaurant) {
+        this(null, added, user, restaurant);
     }
 
-    public Vote(Integer id, LocalDate date, User user, Restaurant restaurant) {
+    public Vote(Integer id, LocalDate added, User user, Restaurant restaurant) {
         super(id);
-        this.date = date;
+        this.added = added;
         this.user = user;
         this.restaurant = restaurant;
     }
@@ -55,7 +55,7 @@ public class Vote extends AbstractBaseEntity {
     public String toString() {
         return "Vote{" +
                 "id=" + id +
-                ", date=" + date +
+                ", added=" + added +
                 '}';
     }
 }
