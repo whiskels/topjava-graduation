@@ -26,9 +26,9 @@ public class Dish extends AbstractNamedEntity implements HasId {
     // https://stackoverflow.com/a/43051227
     private Long price;
 
-    @Column(name = "added", nullable = false)
+    @Column(name = "localDate", nullable = false)
     @NotNull
-    private LocalDate added = LocalDate.now();
+    private LocalDate date = LocalDate.now();
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -43,13 +43,13 @@ public class Dish extends AbstractNamedEntity implements HasId {
 
     public Dish(Integer id, LocalDate date, String name, Long price, Restaurant restaurant) {
         super(id, name);
-        this.added = date;
+        this.date = date;
         this.price = price;
         this.restaurant = restaurant;
     }
 
     public Dish(Dish d) {
-        this(d.getId(), d.getAdded(), d.getName(), d.getPrice(), d.getRestaurant());
+        this(d.getId(), d.getDate(), d.getName(), d.getPrice(), d.getRestaurant());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Dish extends AbstractNamedEntity implements HasId {
                 "id=" + id +
                 ", name='" + name +
                 ", price=" + price +
-                ", added=" + added +
+                ", date=" + date +
                 '}';
     }
 }

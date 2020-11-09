@@ -15,7 +15,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
-    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.added DESC")
+    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.date DESC")
     List<Vote> getAll(@Param("userId") int userId);
 
     @EntityGraph(attributePaths = {"restaurant", "user"}, type = EntityGraph.EntityGraphType.LOAD)
