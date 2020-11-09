@@ -16,7 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 
 @Entity
-@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name", "date"}, name = "dish_unique_restaurant_name_date_idx")})
+@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name", "localDate"}, name = "dish_unique_restaurant_name_date_idx")})
 @Getter
 @Setter
 @NoArgsConstructor
