@@ -45,7 +45,7 @@ public class VoteService {
         final User user = findById(userRepository, userId);
         Vote vote;
         try {
-            vote = getByUserIdAndDate(user, votingLocalDateTime.toLocalDate());
+            vote = getByUserAndLocalDate(user, votingLocalDateTime.toLocalDate());
         } catch (NotFoundException e) {
             log.debug("new vote from user {} for {}", userId, restaurantId);
             return voteRepository.save(new Vote(null, votingLocalDateTime.toLocalDate(), user, restaurant));
@@ -65,7 +65,7 @@ public class VoteService {
         }
     }
 
-    public Vote getByUserIdAndDate(User user, LocalDate date) {
+    public Vote getByUserAndLocalDate(User user, LocalDate date) {
         return checkNotFoundWithId(voteRepository.getByUserAndLocalDate(user, date), user.id());
     }
 
