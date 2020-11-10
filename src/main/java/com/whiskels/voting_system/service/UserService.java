@@ -6,6 +6,7 @@ import com.whiskels.voting_system.repository.UserRepository;
 import com.whiskels.voting_system.to.UserTo;
 import com.whiskels.voting_system.util.UserUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.domain.Sort;
@@ -32,11 +33,13 @@ public class UserService implements UserDetailsService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
+    @CacheEvict(value = "users", allEntries = true)
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
         return prepareAndSave(user);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id) != 0, id);
     }
@@ -54,12 +57,14 @@ public class UserService implements UserDetailsService {
         return repository.findAll(SORT_NAME_EMAIL);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
         prepareAndSave(user);
     }
 
     @Transactional
+    @CacheEvict(value = "users", allEntries = true)
     public void update(UserTo userTo) {
         User user = get(userTo.id());
         prepareAndSave(UserUtil.updateFromTo(user, userTo));
@@ -70,6 +75,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
+    @CacheEvict(value = "users", allEntries = true)
     public void enable(int id, boolean enabled) {
         User user = get(id);
         user.setEnabled(enabled);
