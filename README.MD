@@ -85,6 +85,20 @@ Produces
 Produces
 ```[{"id":100003,"name":"Bluefin","rating":1},{"id":100002,"name":"Corner Grill","rating":1},{"id":100005,"name":"Caesars Palace","rating":0},{"id":100004,"name":"McDonalds","rating":0}]```
 
+#### Get list of dishes in restaurant by date
+
+```curl -s 'http://localhost:8080/voting_system/restaurants/100002/dishes/by?date=2020-08-10' --user admin@gmail.com:admin```
+
+Produces
+```[{"id":100015,"name":"New York Cheesecake","price":350,"localDate":"2020-08-10"},{"id":100013,"name":"Caprese Burger","price":500,"localDate":"2020-08-10"},{"id":100014,"name":"Borsch","price":300,"localDate":"2020-08-10"}]```
+
+#### Get certain dish
+
+```curl -s 'http://localhost:8080/voting_system/restaurants/100002/dishes/100015' --user admin@gmail.com:admin```
+
+Produces
+```{"id":100015,"name":"New York Cheesecake","price":350,"localDate":"2020-08-10"}```
+
 #### Vote for restaurant
 
 ```curl -s -X POST http://localhost:8080/voting_system/votes?restaurantId=100002 --user user@yandex.ru:password```
