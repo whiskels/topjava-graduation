@@ -23,11 +23,11 @@
 
         <!-- Spring -->
         <spring.version>5.2.6.RELEASE</spring.version>
-        <spring.security.version>5.4.0</spring.security.version>
+        <spring.security.version>5.4.1</spring.security.version>
         <spring-data-jpa.version>2.3.4.RELEASE</spring-data-jpa.version>
 
 
-        <jackson-json.version>2.11.2</jackson-json.version>
+        <jackson-json.version>2.11.3</jackson-json.version>
         <tomcat.version>9.0.36</tomcat.version>
 
         <!-- Logging -->
@@ -41,8 +41,8 @@
         <json-path.version>2.4.0</json-path.version>
 
         <!-- Hibernate -->
-        <hibernate.version>5.4.21.Final</hibernate.version>
-        <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
+        <hibernate.version>5.4.22.Final</hibernate.version>
+        <hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
         <javax-el.version>3.0.1-b11</javax-el.version>
 
         <!--Tools-->
