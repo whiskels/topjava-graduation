@@ -37,10 +37,6 @@ public class Dish extends AbstractNamedEntity implements HasId {
     @JsonBackReference(value = "restaurantDishes")
     private Restaurant restaurant;
 
-    public Dish(LocalDate localDate, String name, Long price, Restaurant restaurant) {
-        this(null, localDate, name, price, restaurant);
-    }
-
     public Dish(Integer id, LocalDate localDate, String name, Long price, Restaurant restaurant) {
         super(id, name);
         this.localDate = localDate;
