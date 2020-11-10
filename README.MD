@@ -3,6 +3,7 @@ TopJava #20 Graduation Project
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/50cff6b344b54b13b8701a40a40cf18c)](https://www.codacy.com/manual/whiskels/topjava-graduation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=whiskels/topjava-graduation&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/whiskels/Restaurant-Voting-REST-API.svg?branch=master)](https://travis-ci.org/whiskels/Restaurant-Voting-REST-API)
+
 ## Task
 
 [Link](https://github.com/JavaWebinar/topjava/blob/doc/doc/graduation.md)
@@ -84,7 +85,7 @@ Produces
 
 #### Vote for restaurant
 
-```curl -s -X POST http://localhost:8080/voting_system/votes?restaurantId=100002 --user admin@gmail.com:admin```
+```curl -s -X POST http://localhost:8080/voting_system/votes?restaurantId=100002 --user user@yandex.ru:password```
 
 Produces
 ```{"id":100043,"date":"2020-10-26"}```
