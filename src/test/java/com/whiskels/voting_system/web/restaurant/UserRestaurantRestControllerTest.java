@@ -3,6 +3,7 @@ package com.whiskels.voting_system.web.restaurant;
 import com.whiskels.voting_system.web.AbstractControllerTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.whiskels.voting_system.DishTestData.DISH_1;
@@ -20,9 +21,9 @@ class UserRestaurantRestControllerTest extends AbstractControllerTest {
     private static final String DISHES_FULL_REST_URL = UserRestaurantController.REST_URL + UserRestaurantController.DISHES_REST_URL + '/';
 
     @Test
+    @WithAnonymousUser
     void getAllRestaurantsForToday() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL)
-                .with(userHttpBasic(USER)))
+        perform(MockMvcRequestBuilders.get(UserRestaurantController.REST_URL))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
