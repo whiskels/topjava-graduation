@@ -228,10 +228,10 @@ Produces
 
 #### Get all dishes for restaurant
 
-```[{"id":100022,"name":"Combo box","price":999,"localDate":"2020-11-16"},{"id":100021,"name":"Belgian Waffles","price":375,"localDate":"2020-08-12"},{"id":100019,"name":"Corsican Burger","price":500,"localDate":"2020-08-12"},{"id":100020,"name":"Tom Yum","price":400,"localDate":"2020-08-12"},{"id":100016,"name":"Bolognese Pasta","price":250,"localDate":"2020-08-11"},{"id":100017,"name":"Chicken Noodles","price":150,"localDate":"2020-08-11"},{"id":100018,"name":"Chiefs special","price":500,"localDate":"2020-08-11"},{"id":100014,"name":"Borsch","price":300,"localDate":"2020-08-10"},{"id":100013,"name":"Caprese Burger","price":500,"localDate":"2020-08-10"},{"id":100015,"name":"New York Cheesecake","price":350,"localDate":"2020-08-10"}]```
+```curl -s 'http://localhost:8080/voting_system/admin/restaurants/100002/dishes/' --user admin@gmail.com:admin```
 
 Produces
-```{"id":100013,"name":"Caprese Burger","price":500,"date":"2020-08-10"}```
+```[{"id":100022,"name":"Combo box","price":999,"localDate":"2020-11-16"},{"id":100021,"name":"Belgian Waffles","price":375,"localDate":"2020-08-12"},{"id":100019,"name":"Corsican Burger","price":500,"localDate":"2020-08-12"},{"id":100020,"name":"Tom Yum","price":400,"localDate":"2020-08-12"},{"id":100016,"name":"Bolognese Pasta","price":250,"localDate":"2020-08-11"},{"id":100017,"name":"Chicken Noodles","price":150,"localDate":"2020-08-11"},{"id":100018,"name":"Chiefs special","price":500,"localDate":"2020-08-11"},{"id":100014,"name":"Borsch","price":300,"localDate":"2020-08-10"},{"id":100013,"name":"Caprese Burger","price":500,"localDate":"2020-08-10"},{"id":100015,"name":"New York Cheesecake","price":350,"localDate":"2020-08-10"}]```
 
 
 #### Get restaurant's dish
