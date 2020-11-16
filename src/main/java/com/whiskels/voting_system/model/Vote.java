@@ -15,14 +15,14 @@ import static javax.persistence.FetchType.LAZY;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 
 @Entity
-@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "localDate"}, name = "vote_unique_user_date_idx")})
+@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "localdate"}, name = "vote_unique_user_date_idx")})
 @Getter
 @Setter
 @NoArgsConstructor
 public class Vote extends AbstractBaseEntity {
     public static final LocalTime VOTE_DEADLINE = LocalTime.of(11, 0);
 
-    @Column(name = "localDate", nullable = false)
+    @Column(name = "localdate", nullable = false)
     @NotNull
     private LocalDate localDate = LocalDate.now();
 

@@ -16,7 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 
 @Entity
-@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name", "localDate"}, name = "dish_unique_restaurant_name_date_idx")})
+@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name", "localdate"}, name = "dish_unique_restaurant_name_date_idx")})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,7 +26,7 @@ public class Dish extends AbstractNamedEntity implements HasId {
     // https://stackoverflow.com/a/43051227
     private Long price;
 
-    @Column(name = "localDate", nullable = false)
+    @Column(name = "localdate", nullable = false)
     @NotNull
     private LocalDate localDate = LocalDate.now();
 
