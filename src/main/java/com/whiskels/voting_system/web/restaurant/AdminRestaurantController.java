@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 import static com.whiskels.voting_system.util.ValidationUtil.assureIdConsistent;
 import static com.whiskels.voting_system.util.ValidationUtil.checkNew;
@@ -104,5 +105,11 @@ public class AdminRestaurantController {
     public Dish getDish(@PathVariable int restaurantId, @PathVariable int dishId) {
         log.info("get {}", dishId);
         return dishService.get(dishId, restaurantId);
+    }
+
+    @GetMapping(value = DISHES_REST_URL)
+    public List<Dish> getAllDishes(@PathVariable int restaurantId) {
+        log.info("getAllDishes {}", restaurantId);
+        return dishService.getAll(restaurantId);
     }
 }

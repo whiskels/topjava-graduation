@@ -136,6 +136,15 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void getAllDishes() throws Exception {
+        perform(MockMvcRequestBuilders.get(DISHES_FULL_REST_URL, RESTAURANT_1_ID)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
     void createDishWithLocation() throws Exception {
         Dish newDish = getNewDish();
         ResultActions action = perform(MockMvcRequestBuilders.post(DISHES_FULL_REST_URL, RESTAURANT_1_ID)
