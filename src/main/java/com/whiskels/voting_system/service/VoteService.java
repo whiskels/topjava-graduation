@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.whiskels.voting_system.model.Vote.VOTE_DEADLINE;
-import static com.whiskels.voting_system.util.RepositoryUtil.findById;
 import static com.whiskels.voting_system.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -41,8 +40,8 @@ public class VoteService {
     @Transactional
     public Vote vote(int userId, int restaurantId) {
         LocalDateTime votingLocalDateTime = LocalDateTime.now(clock);
-        final Restaurant restaurant = findById(restaurantRepository, restaurantId);
-        final User user = findById(userRepository, userId);
+        final Restaurant restaurant = checkNotFoundWithId(restaurantRepository.getOne(restaurantId), restaurantId);
+        final User user = checkNotFoundWithId(userRepository.getOne(userId), userId);
         Vote vote;
         try {
             vote = getByUserAndLocalDate(user, votingLocalDateTime.toLocalDate());
@@ -55,7 +54,7 @@ public class VoteService {
             if (vote.getRestaurant().id() != restaurantId) {
                 vote.setRestaurant(restaurant);
                 log.debug("vote from user {} for restaurant {} was changed", userId, restaurantId);
-                return voteRepository.save(vote);
+                return vote;
             }
 
             log.debug("vote from user {} for restaurant {} not changed", userId, restaurantId);
