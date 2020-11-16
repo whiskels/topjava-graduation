@@ -69,6 +69,10 @@ public class VoteService {
         return checkNotFoundWithId(voteRepository.getByUserAndLocalDate(user, date), user.id());
     }
 
+    public Vote getByUserIdAndLocalDate(int userId, LocalDate date) {
+        return checkNotFoundWithId(voteRepository.getByUserIdAndLocalDate(userId, date), userId);
+    }
+
     public List<Vote> getAll(int userId) {
         return voteRepository.getAll(userId);
     }

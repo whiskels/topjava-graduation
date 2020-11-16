@@ -2,7 +2,9 @@ package com.whiskels.voting_system.web.user;
 
 import com.whiskels.voting_system.HasId;
 import com.whiskels.voting_system.model.User;
+import com.whiskels.voting_system.model.Vote;
 import com.whiskels.voting_system.service.UserService;
+import com.whiskels.voting_system.service.VoteService;
 import com.whiskels.voting_system.to.UserTo;
 import com.whiskels.voting_system.util.UserUtil;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.whiskels.voting_system.util.ValidationUtil.assureIdConsistent;
@@ -25,7 +28,10 @@ public abstract class AbstractUserController {
     private WebDataBinder binder;
 
     @Autowired
-    protected UserService service;
+    protected UserService userService;
+
+    @Autowired
+    protected VoteService voteService;
 
     @Autowired
     private UniqueMailValidator emailValidator;
@@ -40,18 +46,18 @@ public abstract class AbstractUserController {
 
     public List<User> getAll() {
         log.info("getAll");
-        return service.getAll();
+        return userService.getAll();
     }
 
     public User get(int id) {
         log.info("get {}", id);
-        return service.get(id);
+        return userService.get(id);
     }
 
     public User create(User user) {
         log.info("create {}", user);
         checkNew(user);
-        return service.create(user);
+        return userService.create(user);
     }
 
     public User create(UserTo userTo) {
@@ -61,7 +67,7 @@ public abstract class AbstractUserController {
 
     public void delete(int id) {
         log.info("delete {}", id);
-        service.delete(id);
+        userService.delete(id);
     }
 
     protected void checkAndValidateForUpdate(HasId user, int id) throws BindException {
@@ -76,21 +82,35 @@ public abstract class AbstractUserController {
     public void update(User user, int id) throws BindException {
         log.info("update {} with id={}", user, id);
         assureIdConsistent(user, id);
-        service.update(user);
+        userService.update(user);
     }
 
     public User getByMail(String email) {
         log.info("getByEmail {}", email);
-        return service.getByEmail(email);
+        return userService.getByEmail(email);
     }
 
     public void enable(int id, boolean enabled) {
         log.info(enabled ? "enable {}" : "disable {}", id);
-        service.enable(id, enabled);
+        userService.enable(id, enabled);
     }
 
     public User getWithVotes(int id) {
         log.info("getWithVotes {}", id);
-        return service.getWithVotes(id);
+        return userService.getWithVotes(id);
+    }
+
+    public Vote getTodayVote(int id) {
+        return getVoteByDate(id, LocalDate.now());
+    }
+
+    public Vote getVoteByDate(int id, LocalDate date) {
+        log.info("getVoteByDate for {} by {}", id, date);
+        return voteService.getByUserIdAndLocalDate(id, date);
+    }
+
+    public List<Vote> getAllVotes(int id) {
+        log.info("getAllVotes {}", id);
+        return voteService.getAll(id);
     }
 }

@@ -19,4 +19,6 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
     List<Vote> getAll(@Param("userId") int userId);
 
     Vote getByUserAndLocalDate(User user, LocalDate localDate);
+
+    Vote getByUserIdAndLocalDate(int userId, LocalDate localDate);
 }

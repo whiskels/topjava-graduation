@@ -64,6 +64,31 @@ Produces
 
 ```curl -s  'http://localhost:8080/voting_system/profile/with-votes' --user admin@gmail.com:admin```
 
+#### Get votes
+
+```curl -s  'http://localhost:8080/voting_system/profile/votes/' --user admin@gmail.com:admin```
+
+Produces
+```[{"id":100012,"localDate":"2020-11-16"},{"id":100011,"localDate":"2020-08-12"},{"id":100010,"localDate":"2020-08-11"},{"id":100009,"localDate":"2020-08-10"}]```
+
+#### Get today's vote
+
+```curl -s  'http://localhost:8080/voting_system/profile/votes/today' --user admin@gmail.com:admin```
+
+Produces
+```{"id":100012,"localDate":"2020-11-16"}```
+
+#### Get vote by date
+
+```curl -s  'http://localhost:8080/voting_system/profile/votes/by?date=2020-08-11' --user admin@gmail.com:admin```
+
+Produces
+```{"id":100010,"localDate":"2020-08-11"}```
+
+#### Get today's vote
+
+```curl -s  'http://localhost:8080/voting_system/profile/votes' --user admin@gmail.com:admin```
+
 Produces
 ```{"id":100001,"name":"Admin","email":"admin@gmail.com","enabled":true,"registered":"2020-10-26T16:35:35.037+00:00","roles":["ADMIN"],"votes":[{"id":100011,"date":"2020-08-12"},{"id":100010,"date":"2020-08-11"},{"id":100009,"date":"2020-08-10"}]}```
 
@@ -134,6 +159,27 @@ Produces
 
 Produces
 ```{"id":100000,"name":"User","email":"user@yandex.ru","enabled":true,"registered":"2020-10-26T17:19:10.174+00:00","roles":["USER"],"votes":[{"id":100008,"date":"2020-08-12"},{"id":100007,"date":"2020-08-11"},{"id":100006,"date":"2020-08-10"}]}```
+
+#### Get user votes
+
+```curl -s  'http://localhost:8080/voting_system/admin/users/100000/votes/' --user admin@gmail.com:admin```
+
+Produces
+```[{"id":100008,"localDate":"2020-08-12"},{"id":100007,"localDate":"2020-08-11"},{"id":100006,"localDate":"2020-08-10"}]```
+
+#### Get user's vote today
+
+```curl -s  'http://localhost:8080/voting_system/admin/users/100001/votes/today' --user admin@gmail.com:admin```
+
+Produces
+```{"id":100012,"localDate":"2020-11-16"}```
+
+#### Get vote by date
+
+```curl -s  'http://localhost:8080/voting_system/admin/users/100001/votes/by?date=2020-08-11' --user admin@gmail.com:admin```
+
+Produces
+```{"id":100010,"localDate":"2020-08-11"}```
 
 #### Enable/disable user
 

@@ -14,6 +14,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static com.whiskels.voting_system.TestUtil.readFromJson;
 import static com.whiskels.voting_system.TestUtil.userHttpBasic;
 import static com.whiskels.voting_system.UserTestData.*;
+import static com.whiskels.voting_system.VoteTestData.VOTE_1;
+import static com.whiskels.voting_system.VoteTestData.VOTE_LAZY_MATCHER;
+import static com.whiskels.voting_system.web.user.AdminRestController.VOTE_URL;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -143,5 +146,33 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(USER_MATCHER.contentJson(ADMIN));
+    }
+
+    @Test
+    void getTodayVote() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID + VOTE_URL+ "/today")
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void getAllVotes() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID + VOTE_URL)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void getVoteByDate() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + USER_ID + VOTE_URL + "/by?date=" + VOTE_1.getLocalDate())
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(VOTE_LAZY_MATCHER.contentJson(VOTE_1));
     }
 }

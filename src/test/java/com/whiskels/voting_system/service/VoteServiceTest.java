@@ -49,4 +49,10 @@ class VoteServiceTest extends AbstractServiceTest {
         List<Vote> voteList = voteService.getAll(USER_ID);
         VOTE_LAZY_MATCHER.assertMatch(voteList, VOTE_3, VOTE_2, VOTE_1);
     }
+
+    @Test
+    void getByUserIdAndDate() throws  Exception {
+        Vote result = voteService.getByUserIdAndLocalDate(USER_ID, VOTE_1.getLocalDate());
+        VOTE_LAZY_MATCHER.assertMatch(result, VOTE_1);
+    }
 }
