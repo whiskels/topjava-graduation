@@ -2,7 +2,7 @@
 TopJava #20 Graduation Project
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/50cff6b344b54b13b8701a40a40cf18c)](https://www.codacy.com/manual/whiskels/topjava-graduation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=whiskels/topjava-graduation&amp;utm_campaign=Badge_Grade)
-[![Build Status](https://travis-ci.com/whiskels/Restaurant-Voting-REST-API.svg?branch=master)](https://travis-ci.com/whiskels/Restaurant-Voting-REST-API)
+[![Build Status](https://travis-ci.com/whiskels/Restaurant-Voting.svg?branch=master)](https://travis-ci.com/whiskels/Restaurant-Voting)
 [![Known Vulnerabilities](https://snyk.io/test/github/whiskels/Restaurant-Voting-REST-API/badge.svg)](https://snyk.io/test/github/whiskels/Restaurant-Voting-REST-API)
 
 
